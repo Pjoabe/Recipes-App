@@ -22,6 +22,11 @@ function Login() {
     });
   }
 
+  function onSubmit() {
+    const user = { email: login.email };
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
   useEffect(() => {
     verifyLogin();
   }, [login]);
@@ -56,7 +61,7 @@ function Login() {
         <button
           data-testid="login-submit-btn"
           type="button"
-          onClick={ () => console.log(login) }
+          onClick={ onSubmit }
           disabled={ btnDisabled }
         >
           Enter
