@@ -4,6 +4,7 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
+import Meals from './pages/Meals';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
         exact
         path="/"
         component={ Login }
+      />
+      <Route
+        path="/meals"
+        component={ Meals }
       />
     </Switch>
 

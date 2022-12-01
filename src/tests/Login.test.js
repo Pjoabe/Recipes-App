@@ -8,7 +8,7 @@ describe('Teste a página <Login.js />', () => {
   const dataIdPassword = 'password-input';
   const dataIdEmail = 'email-input';
   const dataEmail = 'test@mail.com';
-  const dataPassword = '123456';
+  const dataPassword = '1234567';
   // const dataIdBtn = 'login-submit-btn';
 
   test('Teste se a página contém um campo do tipo "email" para inserir o email', () => {
@@ -58,6 +58,10 @@ describe('Teste a página <Login.js />', () => {
     userEvent.type(loginEmail, 'test');
     expect(loginEmail).toHaveValue('test');
 
+    const loginPassword = screen.getByTestId(dataIdPassword);
+    userEvent.type(loginPassword, dataPassword);
+    expect(loginPassword).toHaveValue(dataPassword);
+
     const loginBtn = screen.getByRole('button', { name: /enter/i });
     expect(loginBtn).not.toBeEnabled();
   });
@@ -65,11 +69,32 @@ describe('Teste a página <Login.js />', () => {
   test('Passar password inválido para testar se o botão "Entrar" fica habilitado', () => {
     renderWithRouter(<App />);
 
+    const loginEmail = screen.getByTestId(dataIdEmail);
+    userEvent.type(loginEmail, dataEmail);
+    expect(loginEmail).toHaveValue(dataEmail);
+
     const loginPassword = screen.getByTestId(dataIdPassword);
     userEvent.type(loginPassword, '12345');
     expect(loginPassword.value).toBe('12345');
 
     const loginBtn = screen.getByRole('button', { name: /enter/i });
     expect(loginBtn).not.toBeEnabled();
+  });
+
+  test('Passar dados válidos para testar se o botão "Entrar", ao ser clicado, muda para a rota para "/meals"', () => {
+    const { history } = renderWithRouter(<App />);
+
+    const loginEmail = screen.getByTestId(dataIdEmail);
+    userEvent.type(loginEmail, dataEmail);
+
+    const loginPassword = screen.getByTestId(dataIdPassword);
+    userEvent.type(loginPassword, dataPassword);
+
+    // const loginBtn = screen.getByTestId(dataIdBtn);
+    const loginBtn = screen.getByRole('button', { name: /enter/i });
+    userEvent.click(loginBtn);
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/meals');
   });
 });

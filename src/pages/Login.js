@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import '../styles/login.css';
 
-function Login() {
+function Login({ history }) {
   const [login, setLogin] = useState({ email: '', password: '' });
   const [btnDisabled, setBtnDisabled] = useState(true);
 
@@ -12,6 +13,7 @@ function Login() {
     const verifyEmail = regex.test(email);
     const verifyPassword = password.length > minPassword;
     const btnState = verifyEmail && verifyPassword;
+    console.log(verifyEmail, verifyPassword);
     setBtnDisabled(!btnState);
   }
 
@@ -25,6 +27,7 @@ function Login() {
   function onSubmit() {
     const user = { email: login.email };
     localStorage.setItem('user', JSON.stringify(user));
+    history.push('/meals');
   }
 
   useEffect(() => {
@@ -70,5 +73,11 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
