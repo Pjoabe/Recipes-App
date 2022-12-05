@@ -1,21 +1,21 @@
-import React, { useContext, useEffect } from 'react'; /* { useState }  */
+import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
 import Header from '../components/Header';
 
-function Meals() {
+function Favorites() {
   const { setTitle } = useContext(RecipesContext);
 
   useEffect(() => {
-    setTitle('Meals');
+    setTitle('Favorite Recipes');
   }, []);
 
   return (
-    <div className="container_meals">
+    <div className="container_favorites">
       <Header />
-      <h1>Tela principal de receitas de comidas</h1>
+      <h1>Tela principal de receitas favoritas</h1>
     </div>
   );
 }
 
-export default Meals;
+export default Favorites;
