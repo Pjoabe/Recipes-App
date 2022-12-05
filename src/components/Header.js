@@ -14,8 +14,6 @@ export default function Header() {
   //   setTitle(pathname.replace('/', ''));
   // }, []);
 
-  // const { isDisable, name, chave, loading, dados, artist } = useContext(StarWarsContext);
-
   // const [inputs, setInputs] = useState({ name: '' });
 
   // const [sort, setSort] = useState({
