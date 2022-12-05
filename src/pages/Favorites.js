@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'; /* , { useLocation }  */
 import '../styles/header.css';
 import profileIcon from '../images/profileIcon.svg';
 
-function Profile() {
+function Favorites() {
   return (
-    <div className="container_profile">
+    <div className="container_favorites">
       <header className="container_header">
         {/* <h1 data-testid="page-title">{ title }</h1> */}
-        <h1 data-testid="page-title">Profile</h1>
+        <h1 data-testid="page-title">Favorite Recipes</h1>
         <Link to="/profile">
           <button
             type="button"
@@ -25,9 +25,9 @@ function Profile() {
           </button>
         </Link>
       </header>
-      <h1>Profile</h1>
+      <h1>Tela principal de receitas favoritas</h1>
     </div>
   );
 }
 
-export default Profile;
+export default Favorites;

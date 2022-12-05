@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react'; /* { useEffect, useState } */
+import { Link } from 'react-router-dom'; /* { useLocation } */
 import '../styles/header.css';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
