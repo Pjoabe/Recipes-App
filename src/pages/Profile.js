@@ -1,30 +1,18 @@
-import React from 'react'; /* , { useState, useContext, useEffect }  */
-import { Link } from 'react-router-dom'; /* , { useLocation }  */
+import React, { useContext, useEffect } from 'react';
+import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
-import profileIcon from '../images/profileIcon.svg';
+import Header from '../components/Header';
 
 function Profile() {
+  const { setTitle } = useContext(RecipesContext);
+
+  useEffect(() => {
+    setTitle('Profile');
+  }, []);
+
   return (
     <div className="container_profile">
-      <header className="container_header">
-        {/* <h1 data-testid="page-title">{ title }</h1> */}
-        <h1 data-testid="page-title">Profile</h1>
-        <Link to="/profile">
-          <button
-            type="button"
-            className="button_header"
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-          >
-            <img
-              src={ profileIcon }
-              width="18px"
-              alt="perfil"
-              name="profileIcon"
-            />
-          </button>
-        </Link>
-      </header>
+      <Header />
       <h1>Profile</h1>
     </div>
   );

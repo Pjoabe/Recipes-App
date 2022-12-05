@@ -1,46 +1,18 @@
-import React from 'react'; /* , { useState, useContext, useEffect }  */
-import { Link } from 'react-router-dom'; /* , { useLocation }  */
+import React, { useContext, useEffect } from 'react';
+import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
-import searchIcon from '../images/searchIcon.svg';
-import profileIcon from '../images/profileIcon.svg';
+import Header from '../components/Header';
 
 function Drinks() {
+  const { setTitle } = useContext(RecipesContext);
+
+  useEffect(() => {
+    setTitle('Drinks');
+  }, []);
+
   return (
     <div className="container_drinks">
-      <header className="container_header">
-        {/* <h1 data-testid="page-title">{ title }</h1> */}
-        <h1 data-testid="page-title">Drinks</h1>
-        <Link to="/profile">
-          <button
-            type="button"
-            className="button_header"
-            data-testid="search-top-btn"
-            src={ searchIcon }
-          >
-            <img
-              src={ searchIcon }
-              width="18px"
-              alt="pesquisa"
-              name="searchIcon"
-            />
-          </button>
-        </Link>
-        <Link to="/profile">
-          <button
-            type="button"
-            className="button_header"
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-          >
-            <img
-              src={ profileIcon }
-              width="18px"
-              alt="perfil"
-              name="profileIcon"
-            />
-          </button>
-        </Link>
-      </header>
+      <Header />
       <h1>Tela principal de receitas de drinks</h1>
     </div>
   );

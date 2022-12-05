@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import RecipesProvider from './context/RecipesProvider';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,18 +27,20 @@ function App() {
     //     Glass
     //   </object>
     // </div>
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/meals" component={ Meals } />
-      <Route path="/drinks" component={ Drinks } />
-      <Route path="/meals/:id-da-receita" component={ mealsRecipes } />
-      <Route path="/drinks/:id-da-receita" component={ drinksRecipes } />
-      <Route path="/meals/:id-da-receita/in-progress" component={ mealsProgress } />
-      <Route path="/drinks/:id-da-receita/in-progress" component={ drinksProgress } />
-      <Route path="/profile" component={ Profile } />
-      <Route path="/done-recipes" component={ Recipes } />
-      <Route path="/favorite-recipes" component={ Favorites } />
-    </Switch>
+    <RecipesProvider displayName="Context Display Name">
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/meals" component={ Meals } />
+        <Route path="/drinks" component={ Drinks } />
+        <Route path="/meals/:id-da-receita" component={ mealsRecipes } />
+        <Route path="/drinks/:id-da-receita" component={ drinksRecipes } />
+        <Route path="/meals/:id-da-receita/in-progress" component={ mealsProgress } />
+        <Route path="/drinks/:id-da-receita/in-progress" component={ drinksProgress } />
+        <Route path="/profile" component={ Profile } />
+        <Route path="/done-recipes" component={ Recipes } />
+        <Route path="/favorite-recipes" component={ Favorites } />
+      </Switch>
+    </RecipesProvider>
   );
 }
 
