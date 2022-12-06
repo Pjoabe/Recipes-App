@@ -1,100 +1,94 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
-describe('Teste do componente <.js />', () => {
-  const dataIdPassword = 'password-input';
-  const dataIdEmail = 'email-input';
-  const dataEmail = 'test@mail.com';
-  const dataPassword = '1234567';
-  // const dataIdBtn = 'login-submit-btn';
+describe('Teste do componente <Header.js />', () => {
+  const dataIdBtnTopSearch = 'search-top-btn';
+  const dataIdBtnTopProfile = 'profile-top-btn';
+  const dataIdPageTitle = 'page-title';
 
-  test('Teste se a página contém um campo do tipo "email" para inserir o email', () => {
-    renderWithRouter(<App />);
-    const loginEmail = screen.getByTestId(dataIdEmail);
-
-    expect(loginEmail).toBeInTheDocument();
-    expect(loginEmail).toHaveAttribute('type', 'email');
-  });
-
-  test('Teste se a página contém um campo do tipo "password" para inserir a senha', () => {
-    renderWithRouter(<App />);
-    const loginPassword = screen.getByTestId(dataIdPassword);
-
-    expect(loginPassword).toBeInTheDocument();
-    expect(loginPassword).toHaveAttribute('type', 'password');
-  });
-
-  test('Teste se a página contém um botão com título "Enter"', () => {
-    renderWithRouter(<App />);
-
-    const loginBtn = screen.getByRole('button', { name: /enter/i });
-    expect(loginBtn).toBeInTheDocument();
-    expect(loginBtn).toHaveAttribute('type', 'button');
-    expect(loginBtn.innerHTML).toBe('Enter');
-  });
-
-  test('Passar dados válidos para testar se o botão "Entrar" fica habilitado', () => {
-    renderWithRouter(<App />);
-
-    const loginEmail = screen.getByTestId(dataIdEmail);
-    userEvent.type(loginEmail, dataEmail);
-    expect(loginEmail).toHaveValue(dataEmail);
-
-    const loginPassword = screen.getByTestId(dataIdPassword);
-    userEvent.type(loginPassword, dataPassword);
-    expect(loginPassword).toHaveValue(dataPassword);
-
-    const loginBtn = screen.getByRole('button', { name: /enter/i });
-    expect(loginBtn).toBeEnabled();
-  });
-
-  test('Passar email inválido para testar se o botão "Entrar" fica habilitado', () => {
-    renderWithRouter(<App />);
-
-    const loginEmail = screen.getByTestId(dataIdEmail);
-    userEvent.type(loginEmail, 'test');
-    expect(loginEmail).toHaveValue('test');
-
-    const loginPassword = screen.getByTestId(dataIdPassword);
-    userEvent.type(loginPassword, dataPassword);
-    expect(loginPassword).toHaveValue(dataPassword);
-
-    const loginBtn = screen.getByRole('button', { name: /enter/i });
-    expect(loginBtn).not.toBeEnabled();
-  });
-
-  test('Passar password inválido para testar se o botão "Entrar" fica habilitado', () => {
-    renderWithRouter(<App />);
-
-    const loginEmail = screen.getByTestId(dataIdEmail);
-    userEvent.type(loginEmail, dataEmail);
-    expect(loginEmail).toHaveValue(dataEmail);
-
-    const loginPassword = screen.getByTestId(dataIdPassword);
-    userEvent.type(loginPassword, '12345');
-    expect(loginPassword.value).toBe('12345');
-
-    const loginBtn = screen.getByRole('button', { name: /enter/i });
-    expect(loginBtn).not.toBeEnabled();
-  });
-
-  test('Passar dados válidos para testar se o botão "Entrar", ao ser clicado, muda para a rota para "/meals"', () => {
+  test('Rota "/meals": possui o header com o título "Meals" e os ícones de perfil e pesquisa', () => {
     const { history } = renderWithRouter(<App />);
 
-    const loginEmail = screen.getByTestId(dataIdEmail);
-    userEvent.type(loginEmail, dataEmail);
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
 
-    const loginPassword = screen.getByTestId(dataIdPassword);
-    userEvent.type(loginPassword, dataPassword);
+    expect(screen.getByTestId(dataIdBtnTopProfile)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    expect(screen.getByTestId(dataIdBtnTopSearch)).toBeInTheDocument();
+  });
 
-    // const loginBtn = screen.getByTestId(dataIdBtn);
-    const loginBtn = screen.getByRole('button', { name: /enter/i });
-    userEvent.click(loginBtn);
+  test('Rota "/drinks": possui o header com o título "Drinks" e os ícones de perfil e pesquisa', () => {
+    const { history } = renderWithRouter(<App />);
 
-    const { pathname } = history.location;
-    expect(pathname).toBe('/meals');
+    act(() => {
+      history.push('/drinks');
+    });
+    expect(history.location.pathname).toBe('/drinks');
+
+    expect(screen.getByTestId(dataIdBtnTopProfile)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Drinks');
+    expect(screen.getByTestId(dataIdBtnTopSearch)).toBeInTheDocument();
+  });
+
+  test('Rota "/profile": possui o header com o título "Profile" e o ícone de perfil, mas sem o ícone de pesquisa', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/profile');
+    });
+    expect(history.location.pathname).toBe('/profile');
+
+    expect(screen.getByTestId(dataIdBtnTopProfile)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Profile');
+  });
+
+  test('Rota "/done-recipes": possui o header com o título "Done Recipes" e o ícone de perfil, mas sem o ícone de pesquisa', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/done-recipes');
+    });
+    expect(history.location.pathname).toBe('/done-recipes');
+
+    expect(screen.getByTestId(dataIdBtnTopProfile)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Done Recipes');
+  });
+
+  test('Rota "/favorite-recipes": possui o header com o título "Favorite Recipes" e o ícone de perfil, mas sem o ícone de pesquisa', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/favorite-recipes');
+    });
+    expect(history.location.pathname).toBe('/favorite-recipes');
+
+    expect(screen.getByTestId(dataIdBtnTopProfile)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Favorite Recipes');
+  });
+
+  test('A mudança de tela ocorre corretamente', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopProfile));
+
+    expect(history.location.pathname).toBe('/profile');
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Profile');
   });
 });
