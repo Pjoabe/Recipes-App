@@ -29,7 +29,6 @@ function App() {
     // </div>
     <RecipesProvider displayName="Context Display Name">
       <Switch>
-        <Route exact path="/" component={ Login } />
         <Route path="/meals" component={ Meals } />
         <Route path="/drinks" component={ Drinks } />
         <Route path="/meals/:id-da-receita" component={ mealsRecipes } />
@@ -39,6 +38,7 @@ function App() {
         <Route path="/profile" component={ Profile } />
         <Route path="/done-recipes" component={ Recipes } />
         <Route path="/favorite-recipes" component={ Favorites } />
+        <Route exact path="/" component={ Login } />
       </Switch>
     </RecipesProvider>
   );
