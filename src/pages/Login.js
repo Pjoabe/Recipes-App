@@ -13,7 +13,6 @@ function Login({ history }) {
     const verifyEmail = regex.test(email);
     const verifyPassword = password.length > minPassword;
     const btnState = verifyEmail && verifyPassword;
-    console.log(verifyEmail, verifyPassword);
     setBtnDisabled(!btnState);
   }
 
