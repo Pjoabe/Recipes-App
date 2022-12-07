@@ -37,3 +37,15 @@ export const firstLetterDrink = async (drinkFLetter) => {
     return data;
   }
 };
+// doze primeiras comidas
+export const firstTwelveFoods = async () => {
+  const reponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const data = await reponse.json();
+  return data.meals;
+};
+// doze primeiras bebidas
+export const firstTwelveDrinks = async () => {
+  const reponse = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const data = await reponse.json();
+  return data.drinks;
+};
