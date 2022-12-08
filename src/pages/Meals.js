@@ -9,6 +9,7 @@ import {
 function Meals() {
   const [twelveFoods, setTwelveFoods] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
+  const [lastCategory, setLastCategory] = useState('');
   const { setTitle } = useContext(RecipesContext);
   const TWELVE = 12;
   const FIVE = 5;
@@ -24,7 +25,9 @@ function Meals() {
     setFoods();
   }, []);
   const foodButton = async ({ target: { name } }) => {
-    if (name === 'all') return setTwelveFoods(await firstTwelveFoods());
+    setLastCategory(name);
+    if (name === 'all'
+    || name === lastCategory) return setTwelveFoods(await firstTwelveFoods());
     setTwelveFoods(await firstTwelveFoodCategories(name));
   };
   return (

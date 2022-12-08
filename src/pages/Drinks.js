@@ -9,6 +9,7 @@ import {
 function Drinks() {
   const [twelveDrinks, setTwelveDrinks] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
+  const [lastCategory, setLastCategory] = useState('');
   const { setTitle } = useContext(RecipesContext);
   const TWELVE = 12;
   const FIVE = 5;
@@ -25,7 +26,9 @@ function Drinks() {
   }, []);
 
   const drinkButton = async ({ target: { name } }) => {
-    if (name === 'all') return setTwelveDrinks(await firstTwelveDrinks());
+    setLastCategory(name);
+    if (name === 'all'
+     || name === lastCategory) return setTwelveDrinks(await firstTwelveDrinks());
     setTwelveDrinks(await firstTwelveDrinkCategories(name));
   };
 
