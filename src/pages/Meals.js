@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
 import Header from '../components/Header';
@@ -58,14 +59,16 @@ function Meals() {
         </button>
       </div>
       {twelveFoods.slice(0, TWELVE).map(({ strMeal, strMealThumb, idMeal }, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
-          <img
-            src={ strMealThumb }
-            alt={ strMeal }
-            data-testid={ `${index}-card-img` }
-          />
-          <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-        </div>
+        <Link to={ `/meals/${idMeal}` } key={ idMeal }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ strMealThumb }
+              alt={ strMeal }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+          </div>
+        </Link>
       ))}
     </div>
   );
