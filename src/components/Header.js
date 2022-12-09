@@ -7,9 +7,9 @@ import profileIcon from '../images/profileIcon.svg';
 
 export default function Header() {
   const [showInput, setShowInput] = useState(false);
-  // const [recipeSearch, setRecipeSearch] = useState({ search: '' }); // salva o valor do search no estado da página
-  //
+
   const { title } = useContext(RecipesContext);
+  const { recipeSearch, setRecipeSearch } = useContext(RecipesContext); // salva o valor do search no contexto
   // /*define o título da página dinamicamente(não está sendo utilizado pois parece que o título deve ser estático*/
   // const [title, setTitle] = useState('');
   // const { pathname } = useLocation();
@@ -22,6 +22,16 @@ export default function Header() {
   //   direction: 'ASC',
   // });
 
+  const valideFirstLetter = () => {
+    if (recipeSearch.search === 'primeira-letra' && recipeSearch.name.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+      setRecipeSearch({ ...recipeSearch, name: recipeSearch.name.slice(0, 1) });
+    } else if (recipeSearch.search === 'primeira-letra'
+    && recipeSearch.name.length === 0) {
+      global.alert('Your search must have 1 (one) character');
+    }
+  };
+
   // const filterData = () => {
   //   const dataFilter = data.filter((el) => el.name.toUpperCase()
   //     .includes(inputs.name.toUpperCase()));
@@ -31,6 +41,10 @@ export default function Header() {
   useEffect(() => {
     setShowInput(false);
   }, []);
+
+  useEffect(() => {
+    valideFirstLetter();
+  }, [recipeSearch]);
 
   return (
     <header className="container_header">
@@ -84,10 +98,10 @@ export default function Header() {
               id="searchInput"
               name="search"
               placeholder="Encontre uma receita"
-              // value={ recipeSearch.search }
-              // onChange={ (e) => {
-              //   setRecipeSearch({ ...recipeSearch, search: e.target.value });
-              // } }
+              value={ recipeSearch.name }
+              onChange={ (e) => {
+                setRecipeSearch({ ...recipeSearch, name: e.target.value });
+              } }
             />
             <h3>Pesquisa por</h3>
             <div className="radio_container">
@@ -98,13 +112,13 @@ export default function Header() {
                     type="radio"
                     name="radio"
                     className="radio"
-                    value="ingredientRadio"
                     id="ingredientRadio"
-                    // onChange={ ({ target }) => setSort({ ...sort,
-                    //   direction: target.value }) }
-                    // checked={ sort.direction === 'ASC' }
+                    value="ingrediente"
+                    onChange={ (e) => {
+                      setRecipeSearch({ ...recipeSearch, search: e.target.value });
+                    } }
                   />
-                  Ingrediente
+                  Ingredient
                 </label>
               </div>
               <div className="radios">
@@ -114,13 +128,13 @@ export default function Header() {
                     type="radio"
                     name="radio"
                     className="radio"
-                    value="nameRadio"
                     id="nameRadio"
-                  // onChange={ ({ target }) => setSort({ ...sort,
-                  //   direction: target.value }) }
-                  // checked={ sort.direction === 'DESC' }
+                    value="nome"
+                    onChange={ (e) => {
+                      setRecipeSearch({ ...recipeSearch, search: e.target.value });
+                    } }
                   />
-                  Nome
+                  Name
                 </label>
               </div>
               <div className="radios">
@@ -130,13 +144,13 @@ export default function Header() {
                     type="radio"
                     name="radio"
                     className="radio"
-                    value="firstLetterRadio"
                     id="firstLetterRadio"
-                    // onChange={ ({ target }) => setSort({ ...sort,
-                    //   direction: target.value }) }
-                    // checked={ sort.direction === 'DESC' }
+                    value="primeira-letra"
+                    onChange={ (e) => {
+                      setRecipeSearch({ ...recipeSearch, search: e.target.value });
+                    } }
                   />
-                  Primeira Letra
+                  First letter
                 </label>
               </div>
             </div>
