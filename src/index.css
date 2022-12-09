@@ -41,9 +41,9 @@ body {
   input , select {
   border: 0.5px solid #e2e3e400;
   border-radius: 7px;
-  box-shadow: 0 0 26px rgba(59, 59, 59, 0.8);
+  /* box-shadow: 0 0 26px rgba(59, 59, 59, 0.8); */
   box-sizing: border-box;
-  color: #26991c;
+  color:  rgb(65, 25, 127);
   padding: 8px 12px;
   resize: vertical;
   text-align: center;
