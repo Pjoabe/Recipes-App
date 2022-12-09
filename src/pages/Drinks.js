@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import {
   firstTwelveDrinks, allDrinkCategories, firstTwelveDrinkCategories,
 } from '../services/Apis';
+import Footer from '../components/Footer';
 
 function Drinks() {
   const [twelveDrinks, setTwelveDrinks] = useState([]);
@@ -22,58 +22,39 @@ function Drinks() {
   useEffect(() => {
     setTitle('Drinks');
   }, []);
-
   useEffect(() => {
     setDrinks();
   }, []);
-
   const drinkButton = async ({ target: { name } }) => {
     setLastCategory(name);
     if (name === 'all'
      || name === lastCategory) return setTwelveDrinks(await firstTwelveDrinks());
     setTwelveDrinks(await firstTwelveDrinkCategories(name));
   };
-
   return (
-    <>
-      <div className="container_drinks">
-        <Header />
-        <div>
-          {categoryName.slice(0, FIVE).map(({ strCategory }) => (
-            <button
-              data-testid={ `${strCategory}-category-filter` }
-              type="button"
-              name={ strCategory }
-              key={ strCategory }
-              onClick={ drinkButton }
-            >
-              {strCategory}
-            </button>
-          ))}
+    <div className="container_drinks">
+      <Header />
+      <div>
+        {categoryName.slice(0, FIVE).map(({ strCategory }) => (
           <button
-            data-testid="All-category-filter"
+            data-testid={ `${strCategory}-category-filter` }
             type="button"
+            name={ strCategory }
+            key={ strCategory }
             onClick={ drinkButton }
-            name="all"
           >
-            All
+            {strCategory}
           </button>
-        </div>
-        {twelveDrinks.slice(0, TWELVE).map((
-          { strDrink, strDrinkThumb, idMeal },
-          index,
-        ) => (
-          <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
-            <img
-              src={ strDrinkThumb }
-              alt={ strDrink }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-          </div>
         ))}
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ drinkButton }
+          name="all"
+        >
+          All
+        </button>
       </div>
-
       {twelveDrinks.slice(0, TWELVE).map(({
         strDrink, strDrinkThumb, idDrink,
       }, index) => (
@@ -88,11 +69,8 @@ function Drinks() {
           </div>
         </Link>
       ))}
+      <Footer />
     </div>
-      <Footer data-testid="footer" />
-    </>
-
   );
 }
-
 export default Drinks;
