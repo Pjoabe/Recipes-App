@@ -8,7 +8,7 @@ import profileIcon from '../images/profileIcon.svg';
 export default function Header() {
   const [showInput, setShowInput] = useState(false);
   // const [recipeSearch, setRecipeSearch] = useState({ search: '' }); // salva o valor do search no estado da página
-
+  //
   const { title } = useContext(RecipesContext);
   // /*define o título da página dinamicamente(não está sendo utilizado pois parece que o título deve ser estático*/
   // const [title, setTitle] = useState('');
