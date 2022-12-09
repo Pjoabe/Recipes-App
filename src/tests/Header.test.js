@@ -9,6 +9,7 @@ describe('Teste do componente <Header.js />', () => {
   const dataIdBtnTopSearch = 'search-top-btn';
   const dataIdBtnTopProfile = 'profile-top-btn';
   const dataIdPageTitle = 'page-title';
+  const dataIdInputTopSearch = 'search-input';
 
   test('Rota "/meals": possui o header com o título "Meals" e os ícones de perfil e pesquisa', () => {
     const { history } = renderWithRouter(<App />);
@@ -90,5 +91,35 @@ describe('Teste do componente <Header.js />', () => {
 
     expect(history.location.pathname).toBe('/profile');
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Profile');
+  });
+
+  test('Ao clicar no botão de busca pela primeira vez a barra de busca aparece', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    expect(document.getElementById('searchInput')).not.toBeInTheDocument();
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    expect(screen.getByTestId(dataIdInputTopSearch)).toBeInTheDocument();
+  });
+
+  test('Ao clicar no botão de busca pela segunda vez a barra de busca desaparece', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    expect(document.getElementById('searchInput')).not.toBeInTheDocument();
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    expect(screen.getByTestId(dataIdInputTopSearch)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    expect(document.getElementById('searchInput')).not.toBeInTheDocument();
   });
 });

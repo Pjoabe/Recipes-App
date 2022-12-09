@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
 import Header from '../components/Header';
@@ -10,6 +11,7 @@ import {
 function Meals() {
   const [twelveFoods, setTwelveFoods] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
+  const [lastCategory, setLastCategory] = useState('');
   const { setTitle } = useContext(RecipesContext);
   const TWELVE = 12;
   const FIVE = 5;
@@ -25,7 +27,9 @@ function Meals() {
     setFoods();
   }, []);
   const foodButton = async ({ target: { name } }) => {
-    if (name === 'all') return setTwelveFoods(await firstTwelveFoods());
+    setLastCategory(name);
+    if (name === 'all'
+    || name === lastCategory) return setTwelveFoods(await firstTwelveFoods());
     setTwelveFoods(await firstTwelveFoodCategories(name));
   };
   return (
@@ -67,6 +71,21 @@ function Meals() {
           </div>
         ))}
       </div>
+
+      {twelveFoods.slice(0, TWELVE).map(({ strMeal, strMealThumb, idMeal }, index) => (
+        <Link to={ `/meals/${idMeal}` } key={ idMeal }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ strMealThumb }
+              alt={ strMeal }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+
       <Footer data-testid="footer" />
     </>
   );
