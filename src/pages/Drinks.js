@@ -7,6 +7,7 @@ import {
   firstTwelveDrinks, allDrinkCategories, firstTwelveDrinkCategories,
 } from '../services/Apis';
 import Footer from '../components/Footer';
+import '../styles/drinks.css';
 
 function Drinks() {
   const [twelveDrinks, setTwelveDrinks] = useState([]);
@@ -34,7 +35,7 @@ function Drinks() {
   return (
     <div className="container_drinks">
       <Header />
-      <div>
+      <div className="box_drinks">
         {categoryName.slice(0, FIVE).map(({ strCategory }) => (
           <button
             data-testid={ `${strCategory}-category-filter` }
@@ -59,8 +60,9 @@ function Drinks() {
         strDrink, strDrinkThumb, idDrink,
       }, index) => (
         <Link to={ `/drinks/${idDrink}` } key={ idDrink }>
-          <div data-testid={ `${index}-recipe-card` }>
+          <div data-testid={ `${index}-recipe-card` } className="imgs_cards">
             <img
+              className="imgs"
               src={ strDrinkThumb }
               alt={ strDrink }
               data-testid={ `${index}-card-img` }

@@ -6,6 +6,8 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   /* recebe os valores de título da página */
   const [title, setTitle] = useState('');
+  const [recipeSearch, setRecipeSearch] = useState({ name: '', search: '' });
+
   // useEffect(() => {
 
   //   requestAPIFetch().then((result) => {
@@ -17,7 +19,9 @@ function RecipesProvider({ children }) {
   const value = useMemo(() => ({
     title,
     setTitle,
-  }), [title, setTitle]);
+    recipeSearch,
+    setRecipeSearch,
+  }), [title, setTitle, recipeSearch, setRecipeSearch]);
 
   return (
     <RecipesContext.Provider value={ value }>

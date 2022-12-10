@@ -7,6 +7,7 @@ import {
   firstTwelveFoods, allFoodCategories, firstTwelveFoodCategories,
 } from '../services/Apis';
 import Footer from '../components/Footer';
+import '../styles/meals.css';
 
 function Meals() {
   const [twelveFoods, setTwelveFoods] = useState([]);
@@ -34,7 +35,7 @@ function Meals() {
   return (
     <div className="container_meals">
       <Header />
-      <div>
+      <div className="box_meals">
         {categoryName.slice(0, FIVE).map(({ strCategory }) => (
           <button
             data-testid={ `${strCategory}-category-filter` }
@@ -60,8 +61,9 @@ function Meals() {
       </div>
       {twelveFoods.slice(0, TWELVE).map(({ strMeal, strMealThumb, idMeal }, index) => (
         <Link to={ `/meals/${idMeal}` } key={ idMeal }>
-          <div data-testid={ `${index}-recipe-card` }>
+          <div data-testid={ `${index}-recipe-card` } className="imgs_cards">
             <img
+              className="imgs"
               src={ strMealThumb }
               alt={ strMeal }
               data-testid={ `${index}-card-img` }

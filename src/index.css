@@ -1,6 +1,6 @@
 body {
   background-attachment: fixed;
-  background-image: linear-gradient(rgba(249, 250, 252, 0.897), rgba(0, 0, 0, 0.3));
+  background-image: linear-gradient(white, rgba(255, 255, 255, 0.7));
   background-size:cover;
   color: white;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,17 +15,18 @@ body {
   }
   
   button {
-  background: rgba(25, 25, 25, 0.781);
+  background: rgb(252, 220, 54, 0.781);
+  border: none;
   border-radius: 7px;
-  box-shadow: 0 0 26px rgba(24, 24, 75, 0.8);
+  /* box-shadow: 0 0 26px rgba(252, 220, 54, 0.8); */
   font-weight: bolder;
   letter-spacing: 0.03em;
   padding: 8px 16px;
   }
   
   button:hover {
-  box-shadow: 0 0px 26px rgb(38, 153, 28);
-  background: rgb(38, 153, 28, 0.781);
+  box-shadow: 0 0px 26px rgb(65, 25, 127);
+  background: rgb(65, 25, 127, 0.781);
   }
   
   button:disabled {
