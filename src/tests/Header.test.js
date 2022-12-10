@@ -122,4 +122,38 @@ describe('Teste do componente <Header.js />', () => {
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     expect(document.getElementById('searchInput')).not.toBeInTheDocument();
   });
+
+  test('Tem os data-testids tanto da barra de busca quanto de todos os radio-buttons', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    expect(screen.getByTestId('search-input')).toBeInTheDocument();
+    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
+    expect(screen.getByTestId('name-search-radio')).toBeInTheDocument();
+    expect(screen.getByTestId('first-letter-search-radio')).toBeInTheDocument();
+    expect(screen.getByTestId('exec-search-btn')).toBeInTheDocument();
+  });
+
+  test('Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
+    const { history } = renderWithRouter(<App />);
+
+    global.alert = jest.fn();
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    userEvent.click(screen.getByTestId('first-letter-search-radio'));
+    expect(global.alert).toHaveBeenCalledTimes(1);
+    expect(global.alert).toHaveBeenCalledWith(('Your search must have 1 (one) character'));
+  });
 });
