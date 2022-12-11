@@ -7,6 +7,7 @@ function RecipesProvider({ children }) {
   /* recebe os valores de título da página */
   const [title, setTitle] = useState('');
   const [recipeSearch, setRecipeSearch] = useState({ name: '', search: '' });
+  const [statusSearch, setStatusSearch] = useState(false);
 
   // useEffect(() => {
 
@@ -21,7 +22,9 @@ function RecipesProvider({ children }) {
     setTitle,
     recipeSearch,
     setRecipeSearch,
-  }), [title, setTitle, recipeSearch, setRecipeSearch]);
+    statusSearch,
+    setStatusSearch,
+  }), [title, setTitle, recipeSearch, setRecipeSearch, statusSearch, setStatusSearch]);
 
   return (
     <RecipesContext.Provider value={ value }>

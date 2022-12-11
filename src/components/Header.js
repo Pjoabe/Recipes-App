@@ -6,10 +6,12 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 
 export default function Header() {
-  const [showInput, setShowInput] = useState(false);
+  const { title, recipeSearch, setRecipeSearch,
+    setStatusSearch } = useContext(RecipesContext);
 
-  const { title } = useContext(RecipesContext);
-  const { recipeSearch, setRecipeSearch } = useContext(RecipesContext); // salva o valor do search no contexto
+  const [showInput, setShowInput] = useState(false);
+  const FIRST_LETTER = 'primeira-letra';
+
   // /*define o título da página dinamicamente(não está sendo utilizado pois parece que o título deve ser estático*/
   // const [title, setTitle] = useState('');
   // const { pathname } = useLocation();
@@ -23,10 +25,10 @@ export default function Header() {
   // });
 
   const valideFirstLetter = () => {
-    if (recipeSearch.search === 'primeira-letra' && recipeSearch.name.length > 1) {
+    if (recipeSearch.search === FIRST_LETTER && recipeSearch.name.length > 1) {
       global.alert('Your search must have only 1 (one) character');
       setRecipeSearch({ ...recipeSearch, name: recipeSearch.name.slice(0, 1) });
-    } else if (recipeSearch.search === 'primeira-letra'
+    } else if (recipeSearch.search === FIRST_LETTER
     && recipeSearch.name.length === 0) {
       global.alert('Your search must have 1 (one) character');
     }
@@ -40,6 +42,7 @@ export default function Header() {
 
   useEffect(() => {
     setShowInput(false);
+    setRecipeSearch({ name: '', search: '' });
   }, []);
 
   useEffect(() => {
@@ -100,6 +103,7 @@ export default function Header() {
               placeholder="Encontre uma receita"
               value={ recipeSearch.name }
               onChange={ (e) => {
+                setStatusSearch(false);
                 setRecipeSearch({ ...recipeSearch, name: e.target.value });
               } }
             />
@@ -115,8 +119,10 @@ export default function Header() {
                     id="ingredientRadio"
                     value="ingrediente"
                     onChange={ (e) => {
+                      setStatusSearch(false);
                       setRecipeSearch({ ...recipeSearch, search: e.target.value });
                     } }
+                    checked={ recipeSearch.search === 'ingrediente' }
                   />
                   Ingredient
                 </label>
@@ -131,8 +137,10 @@ export default function Header() {
                     id="nameRadio"
                     value="nome"
                     onChange={ (e) => {
+                      setStatusSearch(false);
                       setRecipeSearch({ ...recipeSearch, search: e.target.value });
                     } }
+                    checked={ recipeSearch.search === 'nome' }
                   />
                   Name
                 </label>
@@ -147,8 +155,10 @@ export default function Header() {
                     id="firstLetterRadio"
                     value="primeira-letra"
                     onChange={ (e) => {
+                      setStatusSearch(false);
                       setRecipeSearch({ ...recipeSearch, search: e.target.value });
                     } }
+                    checked={ recipeSearch.search === FIRST_LETTER }
                   />
                   First letter
                 </label>
@@ -158,7 +168,16 @@ export default function Header() {
               type="button"
               className="button_search_header"
               data-testid="exec-search-btn"
-              // onClick={ () => setShowInput(!showInput) }
+              onClick={ () => {
+                if (recipeSearch.search === '') {
+                  global.alert('Select an option');
+                } else if (recipeSearch.name === '') {
+                  global.alert('Your search must have 1 (one) character');
+                } else {
+                  setStatusSearch(true);
+                  setRecipeSearch({ ...recipeSearch, search: recipeSearch.search });
+                }
+              } }
             >
               Pesquisar
             </button>
