@@ -2,19 +2,19 @@
 export const ingredientName = async (fIngredient) => {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${fIngredient}`);
   const data = await response.json();
-  return data;
+  return data.meals;
 };
 // Nome da comida
 export const FoodName = async (foodName) => {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`);
   const data = await response.json();
-  return data;
+  return data.meals;
 };
 // Primeira letra
 export const firstLetter = async (foodFLetter) => {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${foodFLetter}`);
   const data = await response.json();
-  return data;
+  return data.meals;
 };
 // COMIDAS ACIMA ^^^^^^^
 // Drinks && Bebidas
