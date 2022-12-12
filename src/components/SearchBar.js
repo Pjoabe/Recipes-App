@@ -38,14 +38,14 @@ export default function SearchBar() {
               data-testid="search-input"
               id="searchInput"
               name="search"
-              placeholder="Encontre uma receita"
+              placeholder="Find recipes"
               value={ recipeSearch.name }
               onChange={ (e) => {
                 setStatusSearch(false);
                 setRecipeSearch({ ...recipeSearch, name: e.target.value });
               } }
             />
-            <h3>Pesquisa por</h3>
+            <h3>Search for</h3>
             <div className="radio_container">
               <div className="radios">
                 <label htmlFor="ingredientRadio">
@@ -117,7 +117,7 @@ export default function SearchBar() {
                 }
               } }
             >
-              Pesquisar
+              Search
             </button>
           </div>
         )}

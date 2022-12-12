@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import { response } from './mocks/mocks';
+import meals from '../../cypress/mocks/meals';
 
 describe('Teste do componente <SearchBar.js />', () => {
   const dataIdBtnTopSearch = 'search-top-btn';
@@ -16,7 +16,7 @@ describe('Teste do componente <SearchBar.js />', () => {
 
   beforeEach(() => {
     global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(response),
+      json: jest.fn().mockResolvedValue(meals),
     });
   });
 
@@ -107,12 +107,11 @@ describe('Teste do componente <SearchBar.js />', () => {
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     userEvent.click(screen.getByTestId(dataIdRadioFirst));
-    expect(global.alert).toHaveBeenCalledWith((messageAlert));
-    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 't');
+    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'T');
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
     expect(fetch).toHaveBeenCalledTimes(3);
-    expect(await screen.findByText(/three/i)).toBeInTheDocument();
-    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=t');
+    expect(await screen.findByText(/timbits/i)).toBeInTheDocument();
+    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=T');
   });
 
   test('Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', async () => {
