@@ -14,9 +14,11 @@ describe('Teste do componente <SearchBar.js />', () => {
   const dataIdBtnExecSearch = 'exec-search-btn';
   const messageAlert = 'Your search must have 1 (one) character';
 
-  beforeEach(() => global.fetch = jest.fn().mockResolvedValue({
-    json: jest.fn().mockResolvedValue(response),
-  }));
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(response),
+    });
+  });
 
   test('Tem os data-testids tanto da barra de busca quanto de todos os radio-buttons', () => {
     const { history } = renderWithRouter(<App />);
