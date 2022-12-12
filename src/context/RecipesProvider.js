@@ -4,19 +4,11 @@ import RecipesContext from './RecipesContext';
 // import requestAPIFetch from '../services/RequestAPI';
 
 function RecipesProvider({ children }) {
-  /* recebe os valores de título da página */
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(''); /* recebe os valores de título da página */
   const [showInput, setShowInput] = useState(false);
   const [statusSearch, setStatusSearch] = useState(false);
   const [recipeSearch, setRecipeSearch] = useState({ name: '', search: '' });
-
-  // useEffect(() => {
-
-  //   requestAPIFetch().then((result) => {
-  //     setData(result);
-  //     setSearch(result);
-  //   });
-  // }, []);
+  const [idRecipeSearch, setIdRecipeSearch] = useState('');
 
   const value = useMemo(() => ({
     title,
@@ -27,8 +19,10 @@ function RecipesProvider({ children }) {
     setRecipeSearch,
     statusSearch,
     setStatusSearch,
+    idRecipeSearch,
+    setIdRecipeSearch,
   }), [title, setTitle, recipeSearch, setRecipeSearch, statusSearch, setStatusSearch,
-    showInput, setShowInput]);
+    showInput, setShowInput, idRecipeSearch, setIdRecipeSearch]);
 
   return (
     <RecipesContext.Provider value={ value }>
