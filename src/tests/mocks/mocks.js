@@ -1,3 +1,10 @@
+/* eslint-disable indent */
+/* eslint-disable comma-dangle */
+/* eslint-disable quotes */
+/* eslint-disable no-useless-escape */
+/* eslint-disable key-spacing */
+/* eslint-disable quote-props */
+/* eslint-disable import/prefer-default-export */
 export const response = {
   "meals":[
       {
