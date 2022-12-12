@@ -1,10 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import '../styles/header.css';
 import Header from '../components/Header';
-import {
-  firstTwelveDrinks, allDrinkCategories, firstTwelveDrinkCategories,
+import { firstTwelveDrinks, allDrinkCategories, firstTwelveDrinkCategories,
   firstLetterDrink, ingredientDrink, drinkName } from '../services/Apis';
 import Footer from '../components/Footer';
 import '../styles/drinks.css';
@@ -13,11 +11,17 @@ function Drinks() {
   const [twelveDrinks, setTwelveDrinks] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
   const [lastCategory, setLastCategory] = useState('');
-  const { setTitle, recipeSearch, statusSearch } = useContext(RecipesContext);
+  const { setTitle, recipeSearch, statusSearch,
+    setIdRecipeSearch } = useContext(RecipesContext);
+  const history = useHistory();
   const TWELVE = 12;
   const FIVE = 5;
 
   const checkData = async (arr) => {
+    if (arr.length === 1) {
+      setIdRecipeSearch(arr[0].idDrink);
+      history.push(`/drinks/${arr[0].idDrink}`);
+    }
     if ((arr.length > TWELVE)) {
       return arr.slice(0, TWELVE);
     } return arr;
