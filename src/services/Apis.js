@@ -21,20 +21,20 @@ export const firstLetter = async (foodFLetter) => {
 export const ingredientDrink = async (drinkIngredient) => {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinkIngredient}`);
   const data = await response.json();
-  return data;
+  return data.drinks;
 };
 // Nome da bebida
 export const drinkName = async (drinName) => {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinName}`);
   const data = await response.json();
-  return data;
+  return data.drinks;
 };
 // Primeira letra do ingrediente || bebida
 export const firstLetterDrink = async (drinkFLetter) => {
   if (drinkFLetter.length === 1) {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${drinkFLetter}`);
     const data = await response.json();
-    return data;
+    return data.drinks;
   }
 };
 // doze primeiras comidas

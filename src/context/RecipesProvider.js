@@ -6,8 +6,9 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   /* recebe os valores de título da página */
   const [title, setTitle] = useState('');
-  const [recipeSearch, setRecipeSearch] = useState({ name: '', search: '' });
+  const [showInput, setShowInput] = useState(false);
   const [statusSearch, setStatusSearch] = useState(false);
+  const [recipeSearch, setRecipeSearch] = useState({ name: '', search: '' });
 
   // useEffect(() => {
 
@@ -20,11 +21,14 @@ function RecipesProvider({ children }) {
   const value = useMemo(() => ({
     title,
     setTitle,
+    showInput,
+    setShowInput,
     recipeSearch,
     setRecipeSearch,
     statusSearch,
     setStatusSearch,
-  }), [title, setTitle, recipeSearch, setRecipeSearch, statusSearch, setStatusSearch]);
+  }), [title, setTitle, recipeSearch, setRecipeSearch, statusSearch, setStatusSearch,
+    showInput, setShowInput]);
 
   return (
     <RecipesContext.Provider value={ value }>
