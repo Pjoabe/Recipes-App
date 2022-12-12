@@ -12,6 +12,7 @@ describe('Teste do componente <SearchBar.js />', () => {
   const dataIdInputTopSearch = 'search-input';
   const dataIdRadioFirst = 'first-letter-search-radio';
   const dataIdBtnExecSearch = 'exec-search-btn';
+  const messageAlert = 'Your search must have 1 (one) character';
 
   beforeEach(() => global.fetch = jest.fn().mockResolvedValue({
     json: jest.fn().mockResolvedValue(response),
@@ -48,7 +49,7 @@ describe('Teste do componente <SearchBar.js />', () => {
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     userEvent.click(screen.getByTestId(dataIdRadioFirst));
     expect(global.alert).toHaveBeenCalledTimes(1);
-    expect(global.alert).toHaveBeenCalledWith(('Your search must have 1 (one) character'));
+    expect(global.alert).toHaveBeenCalledWith((messageAlert));
   });
 
   test('Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', async () => {
@@ -104,7 +105,7 @@ describe('Teste do componente <SearchBar.js />', () => {
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     userEvent.click(screen.getByTestId(dataIdRadioFirst));
-    expect(global.alert).toHaveBeenCalledWith(('Your search must have 1 (one) character'));
+    expect(global.alert).toHaveBeenCalledWith((messageAlert));
     userEvent.type(screen.getByTestId(dataIdInputTopSearch), 't');
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
     expect(fetch).toHaveBeenCalledTimes(3);
@@ -125,9 +126,9 @@ describe('Teste do componente <SearchBar.js />', () => {
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     userEvent.click(screen.getByTestId(dataIdRadioFirst));
-    expect(global.alert).toHaveBeenCalledWith(('Your search must have 1 (one) character'));
+    expect(global.alert).toHaveBeenCalledWith((messageAlert));
     userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'tt');
-    expect(global.alert).toHaveBeenCalledWith(('Your search must have 1 (one) character'));
+    expect(global.alert).toHaveBeenCalledWith((messageAlert));
     expect(global.alert).toHaveBeenCalledTimes(2);
   });
 });
