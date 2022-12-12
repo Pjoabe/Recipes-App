@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+src/tests/mocks/mocks.js
 
 # production
 /build
@@ -28,3 +29,4 @@ yarn-error.log*
 cypress/screenshots/
 cypress/videos/
 cypress/reports
+src/tests/mocks/mocks.js
