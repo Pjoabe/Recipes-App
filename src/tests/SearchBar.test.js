@@ -10,9 +10,12 @@ describe('Teste do componente <SearchBar.js />', () => {
   const dataIdBtnTopSearch = 'search-top-btn';
   const dataIdPageTitle = 'page-title';
   const dataIdInputTopSearch = 'search-input';
+  const dataIdRadioName = 'name-search-radio';
   const dataIdRadioFirst = 'first-letter-search-radio';
+  const dataIdRadioIngredient = 'ingredient-search-radio';
   const dataIdBtnExecSearch = 'exec-search-btn';
   const messageAlert = 'Your search must have 1 (one) character';
+  const messageAlertTwo = 'Sorry, we haven\'t found any recipes for these filters.';
 
   beforeEach(() => {
     global.fetch = jest.fn().mockResolvedValue({
@@ -31,8 +34,8 @@ describe('Teste do componente <SearchBar.js />', () => {
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     expect(screen.getByTestId(dataIdInputTopSearch)).toBeInTheDocument();
-    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('name-search-radio')).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdRadioIngredient)).toBeInTheDocument();
+    expect(screen.getByTestId(dataIdRadioName)).toBeInTheDocument();
     expect(screen.getByTestId(dataIdRadioFirst)).toBeInTheDocument();
     expect(screen.getByTestId(dataIdBtnExecSearch)).toBeInTheDocument();
   });
@@ -66,7 +69,7 @@ describe('Teste do componente <SearchBar.js />', () => {
 
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
-    userEvent.click(screen.getByTestId('ingredient-search-radio'));
+    userEvent.click(screen.getByTestId(dataIdRadioIngredient));
     userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'fish');
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
     expect(fetch).toHaveBeenCalledTimes(3);
@@ -86,7 +89,7 @@ describe('Teste do componente <SearchBar.js />', () => {
 
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
-    userEvent.click(screen.getByTestId('name-search-radio'));
+    userEvent.click(screen.getByTestId(dataIdRadioName));
     userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'fish');
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
     expect(fetch).toHaveBeenCalledTimes(3);
@@ -131,5 +134,66 @@ describe('Teste do componente <SearchBar.js />', () => {
     userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'tt');
     expect(global.alert).toHaveBeenCalledWith((messageAlert));
     expect(global.alert).toHaveBeenCalledTimes(2);
+  });
+
+  test('Caso apenas uma comida seja encontrada, deve-se ir para sua rota de detalhes', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    global.alert = jest.fn();
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'timbits');
+    userEvent.click(screen.getByTestId(dataIdRadioName));
+    userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
+    act(() => {
+      history.push('/meals/52929');
+    });
+    expect(history.location.pathname).toBe('/meals/52929');
+    expect(await screen.findByText(/timbits/i)).toBeInTheDocument();
+  });
+
+  test('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    userEvent.click(screen.getByTestId(dataIdRadioName));
+    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'la');
+    userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
+    expect(await screen.findByText(/lasagne/i)).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledTimes(6);
+    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=la');
+    expect(screen.getAllByTestId(/card-name/i).length).toBe(12);
+  });
+
+  test.only('Caso nenhuma comida seja encontrada o alert deve ser exibido', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    window.alert = jest.fn();
+    global.alert = jest.fn();
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    userEvent.click(screen.getByTestId(dataIdRadioName));
+    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'cacau');
+    userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
+    expect(await document.findByText(messageAlertTwo)).toHaveBeenCalled();
+    expect(await global.alert).toHaveBeenCalledTimes(2);
+    expect(await window.alert).toHaveBeenCalled();
   });
 });

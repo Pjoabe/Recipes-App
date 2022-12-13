@@ -14,10 +14,14 @@ function Drinks() {
   const { setTitle, recipeSearch, statusSearch,
     setIdRecipeSearch } = useContext(RecipesContext);
   const history = useHistory();
+  const MESSAGE = ('Sorry, we haven\'t found any recipes for these filters.');
   const TWELVE = 12;
   const FIVE = 5;
 
   const checkData = async (arr) => {
+    if (arr === null) {
+      return arr;
+    }
     if (arr.length === 1) {
       setIdRecipeSearch(arr[0].idDrink);
       history.push(`/drinks/${arr[0].idDrink}`);
@@ -65,10 +69,12 @@ function Drinks() {
 
   const drinkButton = async ({ target: { name } }) => {
     setLastCategory(name);
-    if (name === 'all'
-     || name === lastCategory) return setTwelveDrinks(await firstTwelveDrinks());
-    setTwelveDrinks(await firstTwelveDrinkCategories(name));
+    if (name === 'all' || name === lastCategory) {
+      return setTwelveDrinks(await checkData(await firstTwelveDrinks()));
+    }
+    setTwelveDrinks(await checkData(await firstTwelveDrinkCategories(name)));
   };
+
   return (
     <div className="container_drinks">
       <Header />
@@ -93,21 +99,24 @@ function Drinks() {
           All
         </button>
       </div>
-      {twelveDrinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-        <Link to={ `/drinks/${idDrink}` } key={ idDrink }>
-          <div data-testid={ `${index}-recipe-card` } className="imgs_cards">
-            <img
-              className="imgs"
-              src={ strDrinkThumb }
-              alt={ strDrink }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-          </div>
-        </Link>
-      ))}
+      { twelveDrinks === null
+        ? global.alert(MESSAGE)
+        : twelveDrinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+          <Link to={ `/drinks/${idDrink}` } key={ idDrink }>
+            <div data-testid={ `${index}-recipe-card` } className="imgs_cards">
+              <img
+                className="imgs"
+                src={ strDrinkThumb }
+                alt={ strDrink }
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+            </div>
+          </Link>
+        ))}
       <Footer />
     </div>
   );
 }
+
 export default Drinks;
