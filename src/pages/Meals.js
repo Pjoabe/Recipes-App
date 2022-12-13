@@ -14,10 +14,14 @@ function Meals() {
   const { setTitle, recipeSearch, statusSearch,
     setIdRecipeSearch } = useContext(RecipesContext);
   const history = useHistory();
+  const MESSAGE = ('Sorry, we haven\'t found any recipes for these filters.');
   const TWELVE = 12;
   const FIVE = 5;
 
   const checkData = async (arr) => {
+    if (arr === null) {
+      return arr;
+    }
     if (arr.length === 1) {
       setIdRecipeSearch(arr[0].idMeal);
       history.push(`/meals/${arr[0].idMeal}`);
@@ -65,9 +69,10 @@ function Meals() {
 
   const foodButton = async ({ target: { name } }) => {
     setLastCategory(name);
-    if (name === 'all'
-    || name === lastCategory) return setTwelveFoods(await firstTwelveFoods());
-    setTwelveFoods(await firstTwelveFoodCategories(name));
+    if (name === 'all' || name === lastCategory) {
+      return setTwelveFoods(await checkData(await firstTwelveFoods()));
+    }
+    setTwelveFoods(await checkData(await firstTwelveFoodCategories(name)));
   };
   return (
     <div className="container_meals">
@@ -86,29 +91,28 @@ function Meals() {
         ))}
         <button
           data-testid="All-category-filter"
-          onClick={ async ({ target: { name } }) => {
-            if (name === 'all') return setTwelveFoods(await firstTwelveFoods());
-            setTwelveFoods(await firstTwelveFoodCategories(name));
-          } }
           type="button"
+          onClick={ foodButton }
           name="all"
         >
           All
         </button>
       </div>
-      {twelveFoods.map(({ strMeal, strMealThumb, idMeal }, index) => (
-        <Link to={ `/meals/${idMeal}` } key={ idMeal }>
-          <div data-testid={ `${index}-recipe-card` } className="imgs_cards">
-            <img
-              className="imgs"
-              src={ strMealThumb }
-              alt={ strMeal }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-          </div>
-        </Link>
-      ))}
+      { twelveFoods === null
+        ? global.alert(MESSAGE)
+        : twelveFoods.map(({ strMeal, strMealThumb, idMeal }, index) => (
+          <Link to={ `/meals/${idMeal}` } key={ idMeal }>
+            <div data-testid={ `${index}-recipe-card` } className="imgs_cards">
+              <img
+                className="imgs"
+                src={ strMealThumb }
+                alt={ strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+            </div>
+          </Link>
+        ))}
       <Footer />
     </div>
   );
