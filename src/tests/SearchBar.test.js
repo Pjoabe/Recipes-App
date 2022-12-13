@@ -15,7 +15,6 @@ describe('Teste do componente <SearchBar.js />', () => {
   const dataIdRadioIngredient = 'ingredient-search-radio';
   const dataIdBtnExecSearch = 'exec-search-btn';
   const messageAlert = 'Your search must have 1 (one) character';
-  const messageAlertTwo = 'Sorry, we haven\'t found any recipes for these filters.';
 
   beforeEach(() => {
     global.fetch = jest.fn().mockResolvedValue({
@@ -177,23 +176,36 @@ describe('Teste do componente <SearchBar.js />', () => {
     expect(screen.getAllByTestId(/card-name/i).length).toBe(12);
   });
 
-  test.only('Caso nenhuma comida seja encontrada o alert deve ser exibido', async () => {
+  test('Se o o botão Search for clicado sem nenhum radio selecionado, deve-se exibir um alert', async () => {
     const { history } = renderWithRouter(<App />);
 
-    window.alert = jest.fn();
     global.alert = jest.fn();
 
     act(() => {
       history.push('/meals');
     });
     expect(history.location.pathname).toBe('/meals');
+
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
+    userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
+    expect(global.alert).toHaveBeenCalledWith(('Select an option'));
+  });
+
+  test('Se o o botão Search for clicado com o campo de busca vazio, deve-se exibir um alert', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    global.alert = jest.fn();
+
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     userEvent.click(screen.getByTestId(dataIdRadioName));
-    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'cacau');
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
-    expect(await document.findByText(messageAlertTwo)).toHaveBeenCalled();
-    expect(await global.alert).toHaveBeenCalledTimes(2);
-    expect(await window.alert).toHaveBeenCalled();
+    expect(global.alert).toHaveBeenCalledWith((messageAlert));
   });
 });
