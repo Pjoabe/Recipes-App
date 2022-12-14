@@ -75,14 +75,12 @@ export const firstTwelveFoodCategories = async (category) => {
 };
 // detalhes das comidas recebendo o id como parametro
 export const foodDetails = async (id) => {
-  console.log(id);
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const data = await response.json();
   return data.meals;
 };
 // detalhes das bebidas recebendo o id como parametro
 export const drinkDetails = async (id) => {
-  console.log(id);
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   const data = await response.json();
   return data.drinks;
