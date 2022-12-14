@@ -85,3 +85,15 @@ export const drinkDetails = async (id) => {
   const data = await response.json();
   return data.drinks;
 };
+// recomendações de drinks
+export const drinkRecomendations = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const data = await response.json();
+  return data;
+};
+// recomendações de comidas
+export const foodRecomendations = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const data = await response.json();
+  return data;
+};
