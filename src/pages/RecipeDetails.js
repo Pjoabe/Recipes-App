@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { foodDetails, drinkDetails } from '../services/Apis';
+import {
+  foodDetails, drinkDetails, foodRecomendations, drinkRecomendations,
+} from '../services/Apis';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
   const history = useHistory();
   const [ingredients, setIngredients] = useState([]);
+  const [recomendations, setRecomendations] = useState({});
   const [measures, setMeasures] = useState([]);
   const [details, setDetails] = useState('');
   const { pathname } = history.location;
@@ -47,6 +50,18 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
       strMeasure18, strMeasure19, strMeasure20];
     setMeasures(measuresArray);
   }, [details]);
+  useEffect(() => {
+    const results = async () => {
+      if (pathname.includes('meals')) {
+        const responseDrinksRecomendation = await drinkRecomendations();
+        setRecomendations(responseDrinksRecomendation);
+      } else {
+        const responseMealsRecomendation = await foodRecomendations();
+        setRecomendations(responseMealsRecomendation);
+      }
+    };
+    results();
+  }, [history.location, recomendations]);
   if (pathname.includes('drinks')) {
     return (
       <div>
