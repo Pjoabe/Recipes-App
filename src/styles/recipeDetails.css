@@ -60,11 +60,6 @@
   margin-left: 20px;
 }
 
-.box_details button {
-  color: rgb(65, 25, 127);
-  margin: 10px;
-}
-
 .box_video {
   align-items: center;
   background-color: rgb(255, 255, 255, 0.8);

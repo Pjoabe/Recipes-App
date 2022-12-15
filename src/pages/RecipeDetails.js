@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { foodDetails, drinkDetails } from '../services/Apis';
 import RecomendationCard from './RecomendationCard';
+import '../styles/recipeDetails.css';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
   const [ingredients, setIngredients] = useState([]);
@@ -32,66 +33,85 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
 
   if (pathname.includes('drinks')) {
     return (
-      <div>
+      <div className="container_details">
         <h1 data-testid="recipe-title">{ details.strDrink }</h1>
-        <img
-          data-testid="recipe-photo"
-          src={ details.strDrinkThumb }
-          alt="foto da bebida da receita"
-        />
-        <h2>Categoria da receita</h2>
-        <p data-testid="recipe-category">
-          { details.strCategory }
-          {details.strAlcoholic}
-
-        </p>
-        <h3>Ingredientes</h3>
-        {ingredients.map((ingredient, index) => (
-          <p
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ingredient}
-          </p>))}
-        <h2>Instruções</h2>
-        <p data-testid="instructions">{ details.strInstructions }</p>
+        <div className="box_principal">
+          <img
+            className="imgs"
+            data-testid="recipe-photo"
+            src={ details.strDrinkThumb }
+            alt="foto da bebida da receita"
+          />
+          <div className="title_category">
+            <h2>Category</h2>
+            <h2 data-testid="recipe-category">
+              { details.strCategory }
+              {details.strAlcoholic}
+            </h2>
+          </div>
+        </div>
+        <div className="box_details">
+          <h3>Ingredients</h3>
+          {ingredients.map((ingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {ingredient}
+            </p>))}
+        </div>
+        <div className="box_details">
+          <h2>Instructions</h2>
+          <p data-testid="instructions">{ details.strInstructions }</p>
+        </div>
         <RecomendationCard history={ history } />
       </div>
     );
   }
   if (pathname.includes('meals')) {
     return (
-      <div>
+      <div className="container_details">
         <h1 data-testid="recipe-title">{details.strMeal}</h1>
-        <img
-          src={ details.strMealThumb }
-          alt="Foto da receita"
-          data-testid="recipe-photo"
-        />
-        <h2>Categoria da receita</h2>
-        <p data-testid="recipe-category">{ details.strCategory }</p>
-        <h2>Ingredientes</h2>
-        {ingredients.map((mealingredient, index) => (
-          <p
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {mealingredient}
-          </p>))}
-        <h2>Instruções</h2>
-        <p data-testid="instructions">{ details.strInstructions }</p>
-        <h2>Video</h2>
-        <iframe
-          width="420"
-          height="315"
-          src={ details ? details
-            .strYoutube.replace('/watch?v=', '/embed/') : null }
-          title={ `receita ${details.strMeal}` }
-          allow="accelerometer;
-      autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          data-testid="video"
-        />
+        <div className="box_principal">
+          <img
+            className="imgs"
+            src={ details.strMealThumb }
+            alt="Foto da receita"
+            data-testid="recipe-photo"
+          />
+          <div className="title_category">
+            <h2>Category</h2>
+            <h2 data-testid="recipe-category">{ details.strCategory }</h2>
+          </div>
+        </div>
+        <div className="box_details">
+          <h2>Ingredients</h2>
+          {ingredients.map((mealingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {mealingredient}
+            </p>))}
+        </div>
+        <div className="box_details">
+          <h2>Instructions</h2>
+          <p data-testid="instructions">{ details.strInstructions }</p>
+        </div>
+        <div className="box_video">
+          <h2>Video</h2>
+          <iframe
+            width="420"
+            height="315"
+            src={ details ? details
+              .strYoutube.replace('/watch?v=', '/embed/') : null }
+            title={ `receita ${details.strMeal}` }
+            allow="accelerometer;
+        autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            data-testid="video"
+          />
+        </div>
         <RecomendationCard history={ history } />
       </div>
     );

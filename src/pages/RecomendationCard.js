@@ -32,7 +32,7 @@ function RecomendationCard({ history: { location: { pathname } } }) {
         {
           foodRecomend && (
             <>
-              <div className="div1">
+              <div className="recomendations">
                 {foodRecomend.map((el, index) => (
                   index < SIX && (
                     <div
@@ -41,6 +41,7 @@ function RecomendationCard({ history: { location: { pathname } } }) {
                       key={ index }
                     >
                       <img
+                        className="imgs"
                         src={ el.strMealThumb }
                         alt={ el.strMeal }
                       />
@@ -64,8 +65,8 @@ function RecomendationCard({ history: { location: { pathname } } }) {
   if (pathname.includes('meals')) {
     const SIX = 6;
     return (
-      <div>
-        <div className="div1">
+      <div className="recomendation_container">
+        <div className="recomendations">
           {drinkRecomend.map((el, index) => (
             index < SIX && (
               <div
@@ -74,6 +75,7 @@ function RecomendationCard({ history: { location: { pathname } } }) {
                 key={ index }
               >
                 <img
+                  className="imgs"
                   src={ el.strDrinkThumb }
                   alt={ el.strDrink }
                 />
