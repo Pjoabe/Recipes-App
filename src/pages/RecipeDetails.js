@@ -101,4 +101,3 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
 RecipeDetails.propTypes = {}.isrequired;
 
 export default RecipeDetails;
-// github bugado
