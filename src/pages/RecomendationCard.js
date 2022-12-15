@@ -50,6 +50,7 @@ function RecomendationCard({ history: { location: { pathname } } }) {
                   )))}
               </div>
               <button
+                className="recomendation-button"
                 id="btnStartRecipe"
                 type="button"
                 data-testid="start-recipe-btn"
@@ -84,6 +85,7 @@ function RecomendationCard({ history: { location: { pathname } } }) {
             )))}
         </div>
         <button
+          className="recomendation-button"
           data-testid="start-recipe-btn"
           type="button"
         >
