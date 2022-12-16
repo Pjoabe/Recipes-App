@@ -51,7 +51,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
           </div>
         </div>
         <div className="box_details">
-          <h3>Ingredients</h3>
+          <h2>Ingredients</h2>
           {ingredients.map((ingredient, index) => (
             <p
               key={ index }

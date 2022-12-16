@@ -28,38 +28,43 @@ function RecomendationCard({ history: { location: { pathname } } }) {
   if (pathname.includes('drinks')) {
     const SIX = 6;
     return (
-      <div>
-        {
-          foodRecomend && (
-            <>
-              <div className="recomendations">
-                {foodRecomend.map((el, index) => (
-                  index < SIX && (
-                    <div
-                      className="recomendationCard"
-                      data-testid={ `${index}-recommendation-card` }
-                      key={ index }
-                    >
-                      <img
-                        className="imgs"
-                        src={ el.strMealThumb }
-                        alt={ el.strMeal }
-                      />
-                      <p data-testid={ `${index}-recommendation-title` }>{el.strMeal}</p>
-                    </div>
-                  )))}
-              </div>
-              <button
-                className="recomendation-button"
-                id="btnStartRecipe"
-                type="button"
-                data-testid="start-recipe-btn"
-              >
-                Start Recipe
-              </button>
-            </>
-          )
-        }
+      <div iv className="recomendation_container">
+        <div className="recomendations">
+          <h2>Recomendations</h2>
+          <div className="recomendation_box">
+            {
+              foodRecomend && (
+                <>
+                  {foodRecomend.map((el, index) => (
+                    index < SIX && (
+                      <div
+                        className="recomendationCard"
+                        data-testid={ `${index}-recommendation-card` }
+                        key={ index }
+                      >
+                        <img
+                          className="imgs"
+                          src={ el.strMealThumb }
+                          alt={ el.strMeal }
+                        />
+                        <p data-testid={ `${index}-recommendation-title` }>
+                          {el.strMeal}
+                        </p>
+                      </div>
+                    )))}
+                </>
+              )
+            }
+          </div>
+        </div>
+        <button
+          className="recomendation-button"
+          id="btnStartRecipe"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
+        </button>
       </div>
     );
   }
@@ -68,21 +73,24 @@ function RecomendationCard({ history: { location: { pathname } } }) {
     return (
       <div className="recomendation_container">
         <div className="recomendations">
-          {drinkRecomend.map((el, index) => (
-            index < SIX && (
-              <div
-                className="recomendationCard"
-                data-testid={ `${index}-recommendation-card` }
-                key={ index }
-              >
-                <img
-                  className="imgs"
-                  src={ el.strDrinkThumb }
-                  alt={ el.strDrink }
-                />
-                <p data-testid={ `${index}-recommendation-title` }>{el.strDrink}</p>
-              </div>
-            )))}
+          <h2>Recomendations</h2>
+          <div className="recomendation_box">
+            {drinkRecomend.map((el, index) => (
+              index < SIX && (
+                <div
+                  className="recomendationCard"
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ index }
+                >
+                  <img
+                    className="imgs"
+                    src={ el.strDrinkThumb }
+                    alt={ el.strDrink }
+                  />
+                  <p data-testid={ `${index}-recommendation-title` }>{el.strDrink}</p>
+                </div>
+              )))}
+          </div>
         </div>
         <button
           className="recomendation-button"
