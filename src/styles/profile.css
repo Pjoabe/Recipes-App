@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.container_profile header {
+  position: fixed;
+}
+
 .box_profile {
   align-items: center;
   align-self: center;
