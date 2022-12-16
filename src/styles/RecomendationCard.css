@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 90%;
 }
 
 .recomendation_container button {
@@ -10,7 +10,7 @@
   font-size: 18px;
   letter-spacing: 0.09em;
   padding: 12px 20px;
-  width: 100%;
+  width: 95%;
 }
 
 .recomendation_container button:hover {
@@ -21,21 +21,22 @@
   background-color: rgb(255, 255, 255, 0.8);
   border-radius: 20px;
   box-shadow: 0 0 26px rgba(224, 226, 236, 0.8);
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
-  margin: 20px;
-  overflow-x: scroll;
-  padding: 20px;
-  width: 90%;
+  margin: 10px 20px 60px;
+  max-width: 330px;
+  padding: 10px 20px;
 }
 
-.recomendations img {
-  margin: 10px;
+.recomendation_box {
+  display: flex;
+  overflow-x: scroll;
+  padding: 10px;
 }
 
 .recomendationCard {
   align-items: center;
+  background: rgba(0, 0, 0, 0.05) no-repeat center center;
   display: flex;
   flex-direction: column;
+  margin: 0 10px;
+  position: relative;
 }
