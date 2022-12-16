@@ -6,7 +6,9 @@ body {
   font-size: 14px;
   letter-spacing: 0.04em;
   margin: 0;
+  min-height: 100vh;
   text-shadow: 0px 4px 7px rgba(255,232,251,1);
+  width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 
   }
@@ -41,7 +43,7 @@ body {
   input , select {
   border: 0.5px solid #e2e3e400;
   border-radius: 7px;
-  /* box-shadow: 0 0 26px rgba(59, 59, 59, 0.8); */
+  box-shadow: 0 0 26px rgba(59, 59, 59, 0.8);
   box-sizing: border-box;
   color:  rgb(65, 25, 127);
   padding: 8px 12px;
