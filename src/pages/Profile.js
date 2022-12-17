@@ -1,31 +1,28 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/profile.css';
 
 function Profile() {
+  const [email, setEmail] = useState();
   const { setTitle } = useContext(RecipesContext);
+
+  const getEmail = () => {
+    const user = localStorage.getItem('user');
+    setEmail(user === null ? '' : JSON.parse(user).email);
+  };
 
   useEffect(() => {
     setTitle('Profile');
+    getEmail();
   }, []);
 
   return (
     <div className="container_profile">
       <Header />
       <div className="box_profile">
-        <label htmlFor="emailProfile">
-          Email:
-          <input
-            type="email"
-            name="emailProfile"
-            data-testid="profile-email"
-            placeholder="email@email.com"
-            title="Invalid email address"
-            required
-          />
-        </label>
+        <h2 data-testid="profile-email">{ email }</h2>
         <button
           id="btnDoneProfile"
           type="button"
