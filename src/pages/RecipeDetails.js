@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { foodDetails, drinkDetails } from '../services/Apis';
 import RecomendationCard from './RecomendationCard';
 import '../styles/recipeDetails.css';
-import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ShareButton from './ShareButton';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
   const [ingredients, setIngredients] = useState([]);
@@ -43,12 +43,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
         >
           <img src={ whiteHeartIcon } alt="favorite" />
         </button>
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          <img src={ shareIcon } alt="share icon" />
-        </button>
+        <ShareButton />
         <div className="box_principal">
           <img
             className="imgs"
@@ -92,12 +87,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
         >
           <img src={ whiteHeartIcon } alt="favorite" />
         </button>
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          <img src={ shareIcon } alt="share icon" />
-        </button>
+        <ShareButton />
         <div className="box_principal">
           <img
             className="imgs"
