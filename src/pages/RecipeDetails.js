@@ -35,6 +35,18 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
     return (
       <div className="container_details">
         <h1 data-testid="recipe-title">{ details.strDrink }</h1>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          favorite
+        </button>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          share
+        </button>
         <div className="box_principal">
           <img
             className="imgs"
@@ -72,6 +84,18 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
     return (
       <div className="container_details">
         <h1 data-testid="recipe-title">{details.strMeal}</h1>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          favorite
+        </button>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          share
+        </button>
         <div className="box_principal">
           <img
             className="imgs"
