@@ -64,7 +64,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
           <h2>Instructions</h2>
           <p data-testid="instructions">{ details.strInstructions }</p>
         </div>
-        <RecomendationCard history={ history } />
+        <RecomendationCard idDaReceita={ idDaReceita } history={ history } />
       </div>
     );
   }
@@ -112,7 +112,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             data-testid="video"
           />
         </div>
-        <RecomendationCard history={ history } />
+        <RecomendationCard idDaReceita={ idDaReceita } history={ history } />
       </div>
     );
   }

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { drinkRecomendations, foodRecomendations } from '../services/Apis';
 import '../styles/RecomendationCard.css';
 
-function RecomendationCard({ history: { location: { pathname } } }) {
+function RecomendationCard({ history, idDaReceita }) {
+  const [startBtn, setStartBtn] = useState('Start');
   const [drinkRecomend, setDrinkRecomend] = useState(null);
   const [foodRecomend, setFoodRecomend] = useState(null);
+  const { pathname } = history.location;
 
   useEffect(() => {
     const results = async () => {
@@ -22,6 +24,24 @@ function RecomendationCard({ history: { location: { pathname } } }) {
     };
     results();
   }, []);
+
+  // itens do local storage que incluem a busca abaixo.
+  const onGoingRecipes = () => localStorage.getItem('inProgressRecipes');
+
+  useEffect(() => {
+    if (onGoingRecipes()) {
+      const object = JSON.parse(onGoingRecipes());
+      const array = Object.keys(object);
+      const arrayOfIds = Object.keys(object[array[0]]);
+      if (arrayOfIds.includes(idDaReceita)) {
+        setStartBtn('Continue');
+      }
+    }
+  }, [idDaReceita, startBtn]);
+
+  const startRecipe = () => {
+    history.push(`${pathname}/in-progress`);
+  };
 
   if (!foodRecomend || !drinkRecomend) return <h1>Loading...</h1>;
 
@@ -62,8 +82,9 @@ function RecomendationCard({ history: { location: { pathname } } }) {
           id="btnStartRecipe"
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ startRecipe }
         >
-          Start Recipe
+          { `${startBtn} Recipe` }
         </button>
       </div>
     );
@@ -96,8 +117,9 @@ function RecomendationCard({ history: { location: { pathname } } }) {
           className="recomendation-button"
           data-testid="start-recipe-btn"
           type="button"
+          onClick={ startRecipe }
         >
-          Start Recipe
+          { `${startBtn} Recipe` }
         </button>
       </div>
     );
