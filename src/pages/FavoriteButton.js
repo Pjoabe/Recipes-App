@@ -68,6 +68,9 @@ function FavoriteButton({ details, pathname }) {
     if (pathname.includes('drinks') && !favConfirmation) {
       newFavoriteDrink();
     }
+    if (favConfirmation) {
+      setIsFav(false);
+    }
   };
   return (
     <div>
