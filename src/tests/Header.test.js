@@ -114,7 +114,6 @@ describe('Teste do componente <Header.js />', () => {
       history.push('/meals');
     });
     expect(history.location.pathname).toBe('/meals');
-
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     expect(document.getElementById('searchInput')).not.toBeInTheDocument();
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
