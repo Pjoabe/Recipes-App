@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +8,7 @@ import '../styles/profile.css';
 function Profile() {
   const [email, setEmail] = useState();
   const { setTitle } = useContext(RecipesContext);
+  const history = useHistory();
 
   const getEmail = () => {
     const user = localStorage.getItem('user');
@@ -27,6 +29,7 @@ function Profile() {
           id="btnDoneProfile"
           type="button"
           data-testid="profile-done-btn"
+          onClick={ () => history.push('/done-recipes') }
         >
           Done Recipes
         </button>
