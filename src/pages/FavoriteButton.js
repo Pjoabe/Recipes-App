@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteButton({ details, pathname }) {
+  const [isFav, setIsFav] = useState(false);
+  // função que verifica se há algum item favoritado baseado em booleanos retornados pela função some.
+  const searchOnLocalStorage = (path) => {
+    const onStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (onStorage) {
+      if (path.includes('meals')) {
+        const foodBool = onStorage.some((food) => (food.id === details.idMeal));
+        return foodBool;
+      } if (pathname.includes('drinks')) {
+        const drinkBool = onStorage.some((drink) => (drink.id === details.idDrink));
+        return drinkBool;
+      }
+      return false;
+    }
+  };
+  // fazendo a verificação logo após o carregamento da página
+  useEffect(() => {
+    searchOnLocalStorage(pathname);
+    setIsFav(searchOnLocalStorage(pathname));
+  }, [details.idMeal, details.idDrink]);
+
   // função que verifica se já há algo no localStorage com a chave 'favoriteRecipes'
   const setOnLocalStorage = (param) => {
     const onStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
     if (!onStorage) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([param]));
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([...onStorage, param]));
     }
+    setIsFav(true);
   };
   // Funções que adaptam o objeto details para o formato esperado no avaliador do requisito
   const newFavoriteFood = () => {
@@ -25,33 +47,39 @@ function FavoriteButton({ details, pathname }) {
     };
     setOnLocalStorage(newFood);
   };
-
   const newFavoriteDrink = () => {
-    const newDrink = {
+    const newRecipe = {
       id: details.idDrink,
       type: 'drink',
-      nationality: !details.strArea ? '' : details.strArea,
+      nationality: '',
       category: details.strCategory,
       alcoholicOrNot: details.strAlcoholic,
       name: details.strDrink,
       image: details.strDrinkThumb,
     };
-    setOnLocalStorage(newDrink);
+    setOnLocalStorage(newRecipe);
   };
-  // função que capta em qual pagina de detalhes o usuario está.
+  // função que capta em qual pagina de detalhes o usuario está e seta no localStorage uma comida ou drink selecionado.
   const handlePath = () => {
-    if (pathname.includes('meals')) newFavoriteFood();
-    if (pathname.includes('drinks'))newFavoriteDrink();
+    const favConfirmation = searchOnLocalStorage(pathname);
+    if (pathname.includes('meals') && !favConfirmation) {
+      newFavoriteFood();
+    }
+    if (pathname.includes('drinks') && !favConfirmation) {
+      newFavoriteDrink();
+    }
   };
-
   return (
     <div>
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ handlePath }
       >
-        <img src={ whiteHeartIcon } alt="favorite" />
+        <img
+          src={ isFav ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite"
+          data-testid="favorite-btn"
+        />
       </button>
     </div>
   );
