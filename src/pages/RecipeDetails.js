@@ -55,6 +55,16 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             </h2>
           </div>
         </div>
+        {/* <div className="box_details">
+          <h2>Ingredients</h2>
+          {ingredients.map((ingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {ingredient}
+            </p>))}
+        </div> */}
         <Ingredients ingredients={ ingredients } />
         <div className="box_details">
           <h2>Instructions</h2>
@@ -82,6 +92,16 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             <h2 data-testid="recipe-category">{ details.strCategory }</h2>
           </div>
         </div>
+        {/* <div className="box_details">
+          <h2>Ingredients</h2>
+          {ingredients.map((mealingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {mealingredient}
+            </p>))}
+        </div> */}
         <Ingredients ingredients={ ingredients } />
         <div className="box_details">
           <h2>Instructions</h2>

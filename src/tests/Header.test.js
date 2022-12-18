@@ -10,6 +10,10 @@ describe('Teste do componente <Header.js />', () => {
   const dataIdBtnTopProfile = 'profile-top-btn';
   const dataIdPageTitle = 'page-title';
   const dataIdInputTopSearch = 'search-input';
+  const dataIdRecipeImg = 'recipe-photo';
+  const dataIdInstructions = 'instructions';
+  const dataIdImage = 'favorite-btn';
+  const dataIdRecipephoto = 'recipe-photo';
 
   test('Rota "/meals": possui o header com o título "Meals" e os ícones de perfil e pesquisa', () => {
     const { history } = renderWithRouter(<App />);
@@ -120,5 +124,32 @@ describe('Teste do componente <Header.js />', () => {
     expect(screen.getByTestId(dataIdInputTopSearch)).toBeInTheDocument();
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
     expect(document.getElementById('searchInput')).not.toBeInTheDocument();
+  });
+  test('teste aleatorio', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/drinks/17203');
+    });
+    expect(screen.getByTestId(dataIdRecipeImg)).toBeDefined();
+    expect(screen.getByTestId(dataIdInstructions)).toBeDefined();
+    expect(screen.getByTestId(dataIdImage)).toBeDefined();
+    expect(history.location.pathname).toBe('/drinks/17203');
+  });
+  test('outro teste aleatorio', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('drinks/13501');
+    });
+    expect(history.location.pathname).toBe('/drinks/13501');
+    expect(screen.getByTestId(dataIdRecipephoto)).toBeDefined();
+  });
+  test('tenta passar os 90% do recipeDetails', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
+    expect(history.location.pathname).toBe('/drinks');
+    expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Drinks');
   });
 });
