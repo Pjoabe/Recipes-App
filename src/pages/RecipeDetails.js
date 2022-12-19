@@ -5,7 +5,6 @@ import RecomendationCard from './RecomendationCard';
 import '../styles/recipeDetails.css';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
-import Ingredients from './Ingredients';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
   const [ingredients, setIngredients] = useState([]);
@@ -55,7 +54,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             </h2>
           </div>
         </div>
-        {/* <div className="box_details">
+        <div className="box_details">
           <h2>Ingredients</h2>
           {ingredients.map((ingredient, index) => (
             <p
@@ -64,8 +63,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             >
               {ingredient}
             </p>))}
-        </div> */}
-        <Ingredients ingredients={ ingredients } />
+        </div>
         <div className="box_details">
           <h2>Instructions</h2>
           <p data-testid="instructions">{ details.strInstructions }</p>
@@ -92,7 +90,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             <h2 data-testid="recipe-category">{ details.strCategory }</h2>
           </div>
         </div>
-        {/* <div className="box_details">
+        <div className="box_details">
           <h2>Ingredients</h2>
           {ingredients.map((mealingredient, index) => (
             <p
@@ -101,8 +99,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             >
               {mealingredient}
             </p>))}
-        </div> */}
-        <Ingredients ingredients={ ingredients } />
+        </div>
         <div className="box_details">
           <h2>Instructions</h2>
           <p data-testid="instructions">{ details.strInstructions }</p>

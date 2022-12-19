@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
@@ -147,23 +147,14 @@ describe('Teste do componente <SearchBar.js />', () => {
 
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
+    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'timbits');
     userEvent.click(screen.getByTestId(dataIdRadioName));
-    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'Corba');
-    expect(screen.getByTestId(dataIdInputTopSearch).value).toBe('Corba');
-    userEvent.click(screen.getByLabelText(/name/i));
-    expect(screen.getByTestId(dataIdRadioName)).toBeChecked();
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
-    expect(fetch).toHaveBeenCalledTimes(3);
-    expect(await screen.findByText(/Corba/i)).toBeInTheDocument();
-    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Corba');
     act(() => {
-      history.push('/meals/52977');
+      history.push('/meals/52929');
     });
-    expect(history.location.pathname).toBe('/meals/52977');
-    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977');
-    await waitFor(() => {
-      expect(screen.getByTestId('recipe-title').innerHTML).toBe('Corba');
-    });
+    expect(history.location.pathname).toBe('/meals/52929');
+    expect(await screen.findByText(/timbits/i)).toBeInTheDocument();
   });
 
   test('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', async () => {

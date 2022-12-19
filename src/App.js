@@ -6,12 +6,12 @@ import RecipesProvider from './context/RecipesProvider';
 import './App.css';
 import Drinks from './pages/Drinks';
 import drinksProgress from './pages/Drinks-progress';
-import Favorites from './pages/Favorites';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
 import mealsProgress from './pages/Meals-progress';
 import Profile from './pages/Profile';
-import Recipes from './pages/Recipes';
+import DoneRecipes from './pages/DoneRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
@@ -25,8 +25,8 @@ function App() {
         <Route path="/meals/:id-da-receita/in-progress" component={ mealsProgress } />
         <Route path="/drinks/:id-da-receita/in-progress" component={ drinksProgress } />
         <Route path="/profile" component={ Profile } />
-        <Route path="/done-recipes" component={ Recipes } />
-        <Route path="/favorite-recipes" component={ Favorites } />
+        <Route path="/done-recipes" component={ DoneRecipes } />
+        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route exact path="/" component={ Login } />
       </Switch>
     </RecipesProvider>
