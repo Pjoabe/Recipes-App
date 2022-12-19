@@ -1,5 +1,3 @@
-// import drinksRecipes from './pages/Drinks-recipes';
-// import mealsRecipes from './pages/Meals-recipes';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RecipesProvider from './context/RecipesProvider';
@@ -11,22 +9,24 @@ import Login from './pages/Login';
 import Meals from './pages/Meals';
 import mealsProgress from './pages/Meals-progress';
 import Profile from './pages/Profile';
+import Recipes from './pages/Recipes';
 import DoneRecipes from './pages/DoneRecipes';
 import RecipeDetails from './pages/RecipeDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
     <RecipesProvider displayName="Context Display Name">
       <Switch>
-        <Route path="/meals/:idDaReceita" component={ RecipeDetails } />
-        <Route path="/drinks/:idDaReceita" component={ RecipeDetails } />
-        <Route path="/meals" component={ Meals } />
-        <Route path="/drinks" component={ Drinks } />
-        <Route path="/meals/:id-da-receita/in-progress" component={ mealsProgress } />
-        <Route path="/drinks/:id-da-receita/in-progress" component={ drinksProgress } />
-        <Route path="/profile" component={ Profile } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/meals/:idDaReceita" component={ RecipeDetails } />
+        <Route exact path="/drinks/:idDaReceita" component={ RecipeDetails } />
+        <Route exact path="/meals" component={ Meals } />
+        <Route exact path="/drinks" component={ Drinks } />
+        <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route exact path="/" component={ Login } />
       </Switch>
     </RecipesProvider>
