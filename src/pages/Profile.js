@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -8,6 +8,7 @@ import '../styles/profile.css';
 function Profile() {
   const [email, setEmail] = useState();
   const { setTitle } = useContext(RecipesContext);
+  const history = useHistory();
 
   const getEmail = () => {
     const user = localStorage.getItem('user');

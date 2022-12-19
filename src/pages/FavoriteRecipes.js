@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
@@ -90,9 +89,15 @@ function FavoriteRecipes() {
           <div key={ index }>
             <Link to={ `/${item.type}s/${item.id}` }>
               <h3 data-testid={ `${index}-horizontal-name` }>{item.name}</h3>
-              <img data-testid={ `${index}-horizontal-image` } src={ item.image } alt="food" />
+              <img
+                data-testid={ `${index}-horizontal-image` }
+                src={ item.image }
+                alt="food"
+              />
             </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>{`${item.nationality} - ${item.category} ${item.alcoholicOrNot}`}</p>
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {`${item.nationality} - ${item.category} ${item.alcoholicOrNot}`}
+            </p>
             <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
             <button type="button" onClick={ () => shareRecipe(item) }>
               <img
