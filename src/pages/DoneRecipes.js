@@ -1,12 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import RecipesContext from '../context/RecipesContext';
+import React, { useContext, useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
 import '../styles/doneRecipes.css';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import { useState } from 'react';
 
 function DoneRecipes() {
   const { setTitle } = useContext(RecipesContext);
@@ -39,15 +38,15 @@ function DoneRecipes() {
 
   const resetFilter = () => {
     setFilteredDoneRecipes(allDoneRecipes);
-  }
+  };
 
   const filterMeals = () => {
     setFilteredDoneRecipes(mealsDoneRecipes);
-  }
+  };
 
   const filterDrinks = () => {
     setFilteredDoneRecipes(drinksDoneRecipes);
-  }
+  };
 
   const shareRecipe = (recipe) => {
     copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
@@ -65,7 +64,7 @@ function DoneRecipes() {
           data-testid="filter-by-all-btn"
           type="button"
           name="all"
-          onClick={resetFilter}
+          onClick={ resetFilter }
         >
           All
         </button>
@@ -73,7 +72,7 @@ function DoneRecipes() {
           data-testid="filter-by-meal-btn"
           type="button"
           name="meals"
-          onClick={filterMeals}
+          onClick={ filterMeals }
         >
           Meals
         </button>
@@ -81,31 +80,42 @@ function DoneRecipes() {
           data-testid="filter-by-drink-btn"
           type="button"
           name="drinks"
-          onClick={filterDrinks}
+          onClick={ filterDrinks }
         >
           Drinks
         </button>
       </div>
       <div>
         {filteredDoneRecipes && filteredDoneRecipes.map((item, index) => (
-          <div key={index}>
-            <Link to={`/${item.type}s/${item.id}`}>
-              <h3 data-testid={`${index}-horizontal-name`}>{item.name}</h3>
-              <img data-testid={`${index}-horizontal-image`} src={item.image} alt="food" />
-            </Link>
-            <p data-testid={`${index}-horizontal-top-text`}>{`${item.nationality} - ${item.category} ${item.alcoholicOrNot}`}</p>
-            <p data-testid={`${index}-horizontal-done-date`}>{item.doneDate}</p>
-            <button type='button' onClick={() => shareRecipe(item)}>
+          <div key={ index }>
+            <Link to={ `/${item.type}s/${item.id}` }>
+              <h3 data-testid={ `${index}-horizontal-name` }>{item.name}</h3>
               <img
-                data-testid={`${index}-horizontal-share-btn`}
-                src={shareIcon}
+                data-testid={ `${index}-horizontal-image` }
+                src={ item.image }
+                alt="food"
+              />
+            </Link>
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {`${item.nationality} -
+             ${item.category} ${item.alcoholicOrNot}`}
+
+            </p>
+            <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
+            <button type="button" onClick={ () => shareRecipe(item) }>
+              <img
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareIcon }
                 alt="share"
               />
             </button>
             {copied && <span>Link copied!</span>}
             <span>
               {item.tags.map((tag, keyIndex) => (
-                <p key={keyIndex} data-testid={`${index}-${tag}-horizontal-tag`}>{tag}</p>
+                <p key={ keyIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>
+                  {tag}
+
+                </p>
               ))}
             </span>
           </div>
