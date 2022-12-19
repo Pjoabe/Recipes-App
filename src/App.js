@@ -15,7 +15,6 @@ function App() {
   return (
     <RecipesProvider displayName="Context Display Name">
       <Switch>
-
         <Route exact path="/meals/:idDaReceita" component={ RecipeDetails } />
         <Route exact path="/drinks/:idDaReceita" component={ RecipeDetails } />
         <Route exact path="/meals" component={ Meals } />
@@ -23,8 +22,8 @@ function App() {
         <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
         <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
         <Route exact path="/profile" component={ Profile } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route exact path="/" component={ Login } />
       </Switch>
     </RecipesProvider>

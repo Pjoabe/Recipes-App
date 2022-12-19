@@ -147,14 +147,14 @@ describe('Teste do componente <SearchBar.js />', () => {
 
     expect(screen.getByTestId(dataIdPageTitle).innerHTML).toBe('Meals');
     userEvent.click(screen.getByTestId(dataIdBtnTopSearch));
-    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'timbits');
+    userEvent.type(screen.getByTestId(dataIdInputTopSearch), 'corba');
     userEvent.click(screen.getByTestId(dataIdRadioName));
     userEvent.click(screen.getByTestId(dataIdBtnExecSearch));
     act(() => {
       history.push('/meals/52929');
     });
     expect(history.location.pathname).toBe('/meals/52929');
-    expect(await screen.findByText(/timbits/i)).toBeInTheDocument();
+    expect(await screen.findByText(/corba/i)).toBeInTheDocument();
   });
 
   test('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', async () => {
