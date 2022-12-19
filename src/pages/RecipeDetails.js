@@ -7,7 +7,7 @@ import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
-  const [ingredients, setIngredients] = useState([]);
+  // const [ingredients, setIngredients] = useState([]);
   const [details, setDetails] = useState('');
   const history = useHistory();
   const { pathname } = history.location;
@@ -54,16 +54,7 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             </h2>
           </div>
         </div>
-        <div className="box_details">
-          <h2>Ingredients</h2>
-          {ingredients.map((ingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {ingredient}
-            </p>))}
-        </div>
+
         <div className="box_details">
           <h2>Instructions</h2>
           <p data-testid="instructions">{ details.strInstructions }</p>
@@ -90,16 +81,8 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
             <h2 data-testid="recipe-category">{ details.strCategory }</h2>
           </div>
         </div>
-        <div className="box_details">
-          <h2>Ingredients</h2>
-          {ingredients.map((mealingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {mealingredient}
-            </p>))}
-        </div>
+
+        {/* <Ingredients ingredients={ ingredients } /> */}
         <div className="box_details">
           <h2>Instructions</h2>
           <p data-testid="instructions">{ details.strInstructions }</p>
