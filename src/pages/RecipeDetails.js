@@ -7,7 +7,7 @@ import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
-  const [ingredients, setIngredients] = useState([]);
+  // const [ingredients, setIngredients] = useState([]);
   const [details, setDetails] = useState('');
   const history = useHistory();
   const { pathname } = history.location;

@@ -5,6 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 import '../styles/header.css';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const { setTitle } = useContext(RecipesContext);
@@ -52,6 +53,16 @@ function FavoriteRecipes() {
     setCopied(true);
   };
 
+  const removeFav = (element) => {
+    const favs = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newFavs = favs.filter((item) => item.id !== element.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavs));
+    setAllFavRecipes(newFavs);
+    setFilteredFavRecipes(newFavs);
+    setMeals(newFavs);
+    setDrinks(newFavs);
+  };
+
   return (
     <>
       <Header />
@@ -95,7 +106,9 @@ function FavoriteRecipes() {
                 alt="food"
               />
             </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
               {`${item.nationality} - ${item.category} ${item.alcoholicOrNot}`}
             </p>
             <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
@@ -107,11 +120,17 @@ function FavoriteRecipes() {
               />
             </button>
             {copied && <span>Link copied!</span>}
-            {/* <span>
-              {item.tags.map((tag, keyIndex) => (
-                <p key={ keyIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
-              ))}
-            </span> */}
+            <button
+              className="fav-btn"
+              type="button"
+              onClick={ () => removeFav(item) }
+            >
+              <img
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                src={ blackHeartIcon }
+                alt="Favorite Icon"
+              />
+            </button>
           </div>
         ))}
       </div>
