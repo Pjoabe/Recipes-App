@@ -4,13 +4,15 @@ function Ingredients({ ingredients }) {
   return (
     <div className="box_details">
       <h2>Ingredients</h2>
-      {ingredients.map((ingredient, index) => (
-        <p
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingredient}
-        </p>))}
+      <ul>
+        {ingredients.map((ingredient, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingredient}
+          </li>))}
+      </ul>
     </div>
   );
 }
