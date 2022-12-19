@@ -41,6 +41,7 @@ function RecomendationCard({ history, idDaReceita }) {
 
   const startRecipe = () => {
     history.push(`${pathname}/in-progress`);
+    console.log(pathname);
   };
 
   if (!foodRecomend || !drinkRecomend) return <h1>Loading...</h1>;
