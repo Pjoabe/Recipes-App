@@ -5,12 +5,12 @@ import copy from 'clipboard-copy';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
-const doneRecipesPath = '/done-recipes';
+const favRecipesPath = '/favorite-recipes';
 const allBtnId = 'filter-by-all-btn';
 
 jest.mock('clipboard-copy');
 
-const doneRecipes = [
+const favRecipes = [
   {
     id: '52771',
     type: 'meal',
@@ -36,11 +36,11 @@ const doneRecipes = [
 ];
 
 describe('Testando DoneRecipes', () => {
-  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favRecipes));
   it('Elementos da página', () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push(doneRecipesPath);
+      history.push(favRecipesPath);
     });
 
     expect(screen.getByTestId(allBtnId)).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('Testando DoneRecipes', () => {
       <App />,
     );
     act(() => {
-      history.push(doneRecipesPath);
+      history.push(favRecipesPath);
     });
     copy.mockImplementation(() => {});
 
@@ -68,10 +68,22 @@ describe('Testando DoneRecipes', () => {
     });
   });
 
+  it('Desfavoritando', async () => {
+    const { history } = renderWithRouter(
+      <App />,
+    );
+    act(() => {
+      history.push(favRecipesPath);
+    });
+    copy.mockImplementation(() => {});
+
+    userEvent.click(screen.getByTestId('0-horizontal-favorite-btn'));
+  });
+
   it('Filtros', () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push(doneRecipesPath);
+      history.push(favRecipesPath);
     });
 
     const resetAll = screen.getByTestId(allBtnId);
@@ -97,7 +109,7 @@ describe('Testando chamada localStorage', () => {
   it('', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push(doneRecipesPath);
+      history.push(favRecipesPath);
     });
     await waitFor(() => {
       expect(screen.getByTestId(allBtnId)).toBeInTheDocument();

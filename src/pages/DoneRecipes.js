@@ -96,10 +96,10 @@ function DoneRecipes() {
                 alt="food"
               />
             </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${item.nationality} -
-             ${item.category} ${item.alcoholicOrNot}`}
-
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${item.nationality} - ${item.category} ${item.alcoholicOrNot}`}
             </p>
             <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
             <button type="button" onClick={ () => shareRecipe(item) }>
@@ -112,9 +112,11 @@ function DoneRecipes() {
             {copied && <span>Link copied!</span>}
             <span>
               {item.tags.map((tag, keyIndex) => (
-                <p key={ keyIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>
+                <p
+                  key={ keyIndex }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                >
                   {tag}
-
                 </p>
               ))}
             </span>
