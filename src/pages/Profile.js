@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -25,33 +25,40 @@ function Profile() {
       <Header />
       <div className="box_profile">
         <h2 data-testid="profile-email">{ email }</h2>
-        <button
-          id="btnDoneProfile"
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ () => history.push('/done-recipes') }
-        >
-          Done Recipes
-        </button>
-        <button
-          id="btnFavoriteProfile"
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ () => history.push('/favorite-recipes') }
-        >
-          Favorite Recipes
-        </button>
-        <button
-          id="btnLogoutProfile"
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => {
-            localStorage.clear();
-            history.push('/');
-          } }
-        >
-          Logout
-        </button>
+        <Link to="/done-recipes">
+
+          <button
+            id="btnDoneProfile"
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ () => history.push('/done-recipes') }
+          >
+            Done Recipes
+          </button>
+        </Link>
+        <Link to="/favorite-recipes">
+          <button
+            id="btnFavoriteProfile"
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ () => history.push('/favorite-recipes') }
+          >
+            Favorite Recipes
+          </button>
+        </Link>
+        <Link to="/">
+          <button
+            id="btnLogoutProfile"
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ () => {
+              localStorage.clear();
+              history.push('/');
+            } }
+          >
+            Logout
+          </button>
+        </Link>
       </div>
       <Footer />
     </div>
