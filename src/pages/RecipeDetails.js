@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { foodDetails, drinkDetails } from '../services/Apis';
-import RecomendationCard from './RecomendationCard';
 import '../styles/recipeDetails.css';
-import ShareButton from './ShareButton';
-import FavoriteButton from './FavoriteButton';
-import Ingredients from './Ingredients';
+import MealsDetails from './MealsDetails';
+import DrinkDetails from './DrinkDetails';
 
 function RecipeDetails({ match: { params: { idDaReceita } } }) {
   const [ingredients, setIngredients] = useState([]);
@@ -36,95 +34,24 @@ function RecipeDetails({ match: { params: { idDaReceita } } }) {
 
   if (pathname.includes('drinks')) {
     return (
-      <div className="container_details">
-        <h1 data-testid="recipe-title">{ details.strDrink }</h1>
-        <FavoriteButton pathname={ pathname } details={ details } />
-        <ShareButton />
-        <div className="box_principal">
-          <img
-            className="imgs"
-            data-testid="recipe-photo"
-            src={ details.strDrinkThumb }
-            alt="foto da bebida da receita"
-          />
-          <div className="title_category">
-            <h2>Category</h2>
-            <h2 data-testid="recipe-category">
-              { details.strCategory }
-              {details.strAlcoholic}
-            </h2>
-          </div>
-        </div>
-        <Ingredients ingredients={ ingredients } />
-        {/* <div className="box_details">
-          <h2>Ingredients</h2>
-          {ingredients.map((ingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {ingredient}
-            </p>))}
-        </div> */}
-        <div className="box_details">
-          <h2>Instructions</h2>
-          <p data-testid="instructions">{ details.strInstructions }</p>
-        </div>
-        <RecomendationCard idDaReceita={ idDaReceita } history={ history } />
-      </div>
+      <DrinkDetails
+        pathname={ pathname }
+        history={ history }
+        details={ details }
+        ingredients={ ingredients }
+        idDaReceita={ idDaReceita }
+      />
     );
   }
-  if (pathname.includes('meals')) {
-    return (
-      <div className="container_details">
-        <h1 data-testid="recipe-title">{details.strMeal}</h1>
-        <FavoriteButton pathname={ pathname } details={ details } />
-        <ShareButton />
-        <div className="box_principal">
-          <img
-            className="imgs"
-            src={ details.strMealThumb }
-            alt="Foto da receita"
-            data-testid="recipe-photo"
-          />
-          <div className="title_category">
-            <h2>Category</h2>
-            <h2 data-testid="recipe-category">{ details.strCategory }</h2>
-          </div>
-        </div>
-        <Ingredients ingredients={ ingredients } />
-        {/* <div className="box_details">
-          <h2>Ingredients</h2>
-          {ingredients.map((mealingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {mealingredient}
-            </p>))}
-        </div> */}
-        <div className="box_details">
-          <h2>Instructions</h2>
-          <p data-testid="instructions">{ details.strInstructions }</p>
-        </div>
-        <div className="box_video">
-          <h2>Video</h2>
-          <iframe
-            width="420"
-            height="315"
-            src={ details ? details
-              .strYoutube.replace('/watch?v=', '/embed/') : null }
-            title={ `receita ${details.strMeal}` }
-            allow="accelerometer;
-        autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            data-testid="video"
-          />
-        </div>
-        <RecomendationCard idDaReceita={ idDaReceita } history={ history } />
-      </div>
-    );
-  }
+  return (
+    <MealsDetails
+      pathname={ pathname }
+      history={ history }
+      details={ details }
+      ingredients={ ingredients }
+      idDaReceita={ idDaReceita }
+    />
+  );
 }
 
 RecipeDetails.propTypes = {}.isrequired;
