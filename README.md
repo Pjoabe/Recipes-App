@@ -18,8 +18,8 @@ Aplicação de receitas feita com React, utilizando Context API e React Hooks.
 
 > Neste projeto, desenvolvi as seguintes habilidades:
 
-- Utilizar a Context API do React para gerenciar estado;
-- Utilizar os React Hooks useContext, useState e useEffect;
+- Utilizar Context API do React para gerenciar estado;
+- Utilizar React Hooks useContext, useState e useEffect;
 
 ## ⬇️ Instalando dependências
 
