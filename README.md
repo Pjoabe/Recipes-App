@@ -10,7 +10,7 @@ Aplicação de receitas feita com React, utilizando Context API e React Hooks.
 > Este projeto foi desenvolvido com as seguintes tecnologias:
 
 - JavaScript
-- React
+- React.js
 - Context API
 - React Hooks
 
